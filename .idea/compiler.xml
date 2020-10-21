@@ -9,6 +9,7 @@
         <module name="ProjektSkabelon-master" />
         <module name="CupcakeFactory" />
         <module name="Projektskabelon-master" />
+        <module name="Olsker Cupcake" />
         <module name="Projektskabelon" />
         <module name="prejektSkabelon" />
       </profile>
@@ -17,6 +18,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="CupcakeFactory" options="-endorseddirs &quot;C:\Users\Jack\IdeaProjects\2. Semester\CupcakeFactory\target/endorsed&quot;" />
+      <module name="Olsker Cupcake" options="-endorseddirs &quot;C:\Users\Windowshoi\OneDrive\Dokumenter\code\java\_ School Projects\2nd Sem\Olsker Cupcake\target/endorsed&quot;" />
       <module name="ProjektSkabelon-master" options="-endorseddirs &quot;$PROJECT_DIR$/target/endorsed&quot;" />
       <module name="Projektskabelon" options="-endorseddirs $PROJECT_DIR$/target/endorsed" />
       <module name="Projektskabelon-master" options="-endorseddirs $PROJECT_DIR$/target/endorsed" />

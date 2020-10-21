@@ -1,3 +1,4 @@
-.navbar .nav-link{
-    padding: 2em 4em;
+.navbar .navbar-nav .nav-link {
+    padding-right: 2em;
+    padding-left: 2em;
 }
