@@ -12,6 +12,10 @@
 
 <jsp:include page="/WEB-INF/includes/header.include.jsp" />
 
-<h1>Nice shop side</h1>
+<h1>Start shopping</h1>
+<form>
+    <input type="hidden" name="target" value="order">
+
+</form>
 
 <jsp:include page="/WEB-INF/includes/footer.include.jsp" />

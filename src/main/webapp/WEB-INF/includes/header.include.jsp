@@ -27,11 +27,21 @@
     <!--Nav Bar-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-2">
         <ul class="navbar-nav">
-            <li class="nav-item"><a href="" class="nav-link">Ordre</a></li>
-            <li class="nav-item"><a href="" class="nav-link">Kunder</a></li>
+            <li class="nav-item"><a href="" class="nav-link">Shop</a></li>
+            <li class="nav-item"><a href="" class="nav-link">Undefined</a></li>
         </ul>
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a href="" class="nav-link">bruger@cphbusiness.dk</a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">bruger@cphbusiness.dk</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Ordre historik </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item text-danger d-flex" href="#">
+                        <span>Log ud</span>
+                        <span class="material-icons-round align-text-bottom ml-auto">exit_to_app</span>
+                    </a>
+                </div>
+            </li>
             <li class="nav-item"><a href="" class="nav-link"><span class="material-icons-round">shopping_basket</span></a></li>
         </ul>
     </nav>
