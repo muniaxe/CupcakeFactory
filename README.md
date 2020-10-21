@@ -1,9 +1,9 @@
-# Skabelon til Java webprojekter
+# Olsker Cupcakes
 
-Denne skabelon anvendes på 2. semester på datamatikeruddannelsen i Lyngby og på Bornholm. Den er baseret på et command pattern.
+Dette er Jacks, Hvids og Dyrhøis aflevering af Olsker Cupcake 
 
 ## Dokumentation
 
-Her kan man beskrive hvad projektet består af og hvordan man kan installere det på localhost og på en produktionsserver.
+En implementation af [web-skabelonen](https://github.com/raakostOnCph/Projektskabelon)
 
 
