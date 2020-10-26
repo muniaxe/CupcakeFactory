@@ -1,14 +1,26 @@
 package olskercupcakes.web;
 
+import olskercupcakes.api.OlskerCupcakes;
+import olskercupcakes.infrastructure.Database;
+import olskercupcakes.infrastructure.UserDBDAO;
+
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class BaseServlet extends HttpServlet {
+    protected static final OlskerCupcakes api;
 
+    static {
+        api = createOlskerCupcakes();
+    }
+
+    private static OlskerCupcakes createOlskerCupcakes() {
+        Database db = new Database();
+        return new OlskerCupcakes(new UserDBDAO(db));
+    }
     protected void render(String title, String content, HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         req.setAttribute("title", title);

@@ -10,8 +10,12 @@
 
 
 <h1 class="mb-3">Log ind eller registrer ny bruger</h1>
+<c:if test="${param.err!=null}">
+    ${param.err}
+</c:if>
 <div class="row">
-    <form class="col" name="login" action="FrontController" method="POST">
+    <form class="col" name="login" action="${pageContext.request.contextPath}/authentication" method="POST">
+        <input hidden value="login" name="action">
         <h4>Log ind</h4>
         <div class="form-group">
             <label class="w-100">Email:
@@ -26,7 +30,8 @@
         <input class="btn btn-primary" type="submit" value="Log ind">
     </form>
 
-    <form class="col" name="registrer" action="FrontController" method="POST">
+    <form class="col" name="registrer" action="${pageContext.request.contextPath}/authentication" method="POST">
+        <input hidden value="register" name="action">
         <h4>Registrer ny bruger</h4>
         <div class="form-group">
             <label class="w-100">Email:
