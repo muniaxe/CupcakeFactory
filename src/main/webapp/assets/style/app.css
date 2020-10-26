@@ -7,3 +7,22 @@
     min-width: 100%;
 }
 
+.floating-label {
+    position: relative;
+    padding-top:2em;
+}
+
+.floating-label label {
+    position: absolute;
+    padding: .375rem .75rem;
+    top: 2em;
+    left:0;
+}
+
+.floating-label input:focus + label, .floating-label input:not(:placeholder-shown) + label {
+    top:calc(2em - 30px);
+    padding:0;
+}
+
+
+

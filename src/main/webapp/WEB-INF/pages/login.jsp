@@ -18,9 +18,10 @@
         <input hidden value="login" name="action">
         <h4>Log ind</h4>
         <div class="form-group">
-            <label class="w-100">Email:
-                <input class="form-control" type="text" name="email">
-            </label>
+            <div class="floating-label">
+                <input class="form-control" placeholder=" " type="text" name="email" required>
+                <label class="">Email:</label>
+            </div>
         </div>
         <div class="form-group">
             <label class="w-100">Password:
