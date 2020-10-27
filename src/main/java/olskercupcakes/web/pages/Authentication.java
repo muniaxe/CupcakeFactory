@@ -30,7 +30,7 @@ public class Authentication extends BaseServlet {
         }
     }
 
-    private void login(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    private void login(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         try {
             String email = req.getParameter("email");
             String password = req.getParameter("password");
@@ -40,9 +40,11 @@ public class Authentication extends BaseServlet {
             }
             resp.sendRedirect(req.getContextPath() + "/");
         } catch (UserNotFoundException | UserNonMatchingPasswordException e) {
-            resp.sendRedirect(req.getContextPath() + "/authentication?err=Email og password matcher ikke");
+            req.setAttribute("error", "Der fandtes ingen bruger med denne email / adgangskode kombination.");
+            doGet(req, resp);
         } catch (NullPointerException e){
-            resp.sendRedirect(req.getContextPath() + "/authentication");
+            req.setAttribute("error", "Der skete en intern fejl i systemet, prøv igen.");
+            doGet(req, resp);
         }
     }
 

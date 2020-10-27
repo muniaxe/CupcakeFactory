@@ -9,13 +9,13 @@
 
 .floating-label {
     position: relative;
-    padding-top:2em;
+    padding-top:1.5em;
 }
 
 .floating-label label {
     position: absolute;
     padding: .375rem .75rem;
-    top: 2em;
+    top: 1.5em;
     left:0;
     transition: all .2s;
     color:rgba(33,37,41,.7);
@@ -23,9 +23,10 @@
 }
 
 .floating-label input:focus + label, .floating-label input:not(:placeholder-shown) + label {
-    top:calc(2em - 30px);
+    top:0;
     color:#212529;
     padding:0;
+    font-size:14px;
 }
 
 

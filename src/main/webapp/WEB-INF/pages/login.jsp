@@ -10,8 +10,8 @@
 
 
 <h1 class="mb-3">Log ind eller registrer ny bruger</h1>
-<c:if test="${param.err!=null}">
-    ${param.err}
+<c:if test="${requestScope.error!=null}">
+    ${requestScope.error}
 </c:if>
 <div class="row">
     <form class="col" name="login" action="${pageContext.request.contextPath}/authentication" method="POST">
@@ -26,7 +26,7 @@
         <div class="form-group">
             <div class="floating-label">
                 <input class="form-control" id="login_password" placeholder=" " type="text" name="password" required>
-                <label class="" for="login_password">Password</label>
+                <label class="" for="login_password">Adgangskode</label>
             </div>
         </div>
         <input class="btn btn-primary" type="submit" value="Log ind">
@@ -44,13 +44,13 @@
         <div class="form-group">
             <div class="floating-label">
                 <input class="form-control" id="register_password" placeholder=" " type="text" name="password" required>
-                <label class="" for="register_password">Password</label>
+                <label class="" for="register_password">Adgangskode</label>
             </div>
         </div>
         <div class="form-group">
             <div class="floating-label">
                 <input class="form-control" id="register_password_verify" placeholder=" " type="text" name="password_verify" required>
-                <label class="" for="register_password_verify">Re-type Password</label>
+                <label class="" for="register_password_verify">Bekræft adgangskode</label>
             </div>
         </div>
         <input class="btn btn-primary" type="submit" value="Registrer">
