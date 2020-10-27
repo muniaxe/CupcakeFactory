@@ -24,9 +24,10 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="w-100">Password:
-                <input class="form-control" type="password" name="password">
-            </label>
+            <div class="floating-label">
+                <input class="form-control" id="login_password" placeholder=" " type="text" name="password" required>
+                <label class="" for="login_password">Password</label>
+            </div>
         </div>
         <input class="btn btn-primary" type="submit" value="Log ind">
     </form>
@@ -35,19 +36,22 @@
         <input hidden value="register" name="action">
         <h4>Registrer ny bruger</h4>
         <div class="form-group">
-            <label class="w-100">Email:
-                <input class="form-control" type="text" name="email">
-            </label>
+            <div class="floating-label">
+                <input class="form-control" id="register_email" placeholder=" " type="text" name="email" required>
+                <label class="" for="register_email">Email</label>
+            </div>
         </div>
         <div class="form-group">
-            <label class="w-100">Password:
-                <input class="form-control" type="password" name="password1">
-            </label>
+            <div class="floating-label">
+                <input class="form-control" id="register_password" placeholder=" " type="text" name="password" required>
+                <label class="" for="register_password">Password</label>
+            </div>
         </div>
         <div class="form-group">
-            <label class="w-100">Retype Password:
-                <input class="form-control" type="password" name="password2">
-            </label>
+            <div class="floating-label">
+                <input class="form-control" id="register_password_verify" placeholder=" " type="text" name="password_verify" required>
+                <label class="" for="register_password_verify">Re-type Password</label>
+            </div>
         </div>
         <input class="btn btn-primary" type="submit" value="Registrer">
     </form>
