@@ -19,8 +19,8 @@
         <h4>Log ind</h4>
         <div class="form-group">
             <div class="floating-label">
-                <input class="form-control" placeholder=" " type="text" name="email" required>
-                <label class="">Email:</label>
+                <input class="form-control" id="login_email" placeholder=" " type="text" name="email" required>
+                <label class="" for="login_email">Email</label>
             </div>
         </div>
         <div class="form-group">

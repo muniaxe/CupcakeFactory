@@ -17,10 +17,14 @@
     padding: .375rem .75rem;
     top: 2em;
     left:0;
+    transition: all .2s;
+    color:rgba(33,37,41,.7);
+    cursor:text;
 }
 
 .floating-label input:focus + label, .floating-label input:not(:placeholder-shown) + label {
     top:calc(2em - 30px);
+    color:#212529;
     padding:0;
 }
 
