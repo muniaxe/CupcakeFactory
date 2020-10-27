@@ -23,4 +23,5 @@ public class OlskerCupcakes {
         byte[] secret = User.calculateSecret(salt, password);
         return userRepository.createUser(email, salt, secret);
     }
+
 }

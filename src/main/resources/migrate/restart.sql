@@ -1,16 +1,16 @@
-drop database if exists chadchat;
+drop database if exists olskercupcakes;
 drop user if exists 'olskercupcakes'@'localhost';
 
-create database chadchat;
+create database olskercupcakes;
 create user 'olskercupcakes'@'localhost';
 
-grant all privileges on chadchat.* to 'olskercupcakes'@'localhost';
+grant all privileges on olskercupcakes.* to 'olskercupcakes'@'localhost';
 
-use chadchat;
+use olskercupcakes;
 DROP TABLE IF EXISTS users;
 create table users(
     id int PRIMARY KEY AUTO_INCREMENT,
-    username varchar(25) NOT NULL UNIQUE,
+    email varchar(25) NOT NULL UNIQUE,
     salt BINARY(16) NOT NULL,
     secret BINARY(32) NOT NULL,
     _date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
