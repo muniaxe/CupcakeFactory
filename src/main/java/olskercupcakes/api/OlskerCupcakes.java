@@ -1,9 +1,6 @@
 package olskercupcakes.api;
 
-import olskercupcakes.domain.user.User;
-import olskercupcakes.domain.user.UserInvalidPasswordException;
-import olskercupcakes.domain.user.UserNotFoundException;
-import olskercupcakes.domain.user.UserRepository;
+import olskercupcakes.domain.user.*;
 
 public class OlskerCupcakes {
 
@@ -14,8 +11,16 @@ public class OlskerCupcakes {
         this.userRepository = userDBDAO;
     }
 
-    public User authorizeUser (String email, String password) throws UserInvalidPasswordException, UserNotFoundException {
+    public User authorizeUser (String email, String password) throws UserNonMatchingPasswordException, UserNotFoundException {
         return userRepository.authorizeUser(email, password);
     }
 
+    public User createUser(String email, String password, String passwordVerify) throws UserExistsException, UserPasswordVerifyException {
+        if (!password.equals(passwordVerify)){
+            throw new UserPasswordVerifyException();
+        }
+        byte[] salt = User.genereateSalt();
+        byte[] secret = User.calculateSecret(salt, password);
+        return userRepository.createUser(email, salt, secret);
+    }
 }

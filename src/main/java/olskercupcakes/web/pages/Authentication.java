@@ -1,9 +1,6 @@
 package olskercupcakes.web.pages;
 
-import olskercupcakes.domain.user.User;
-import olskercupcakes.domain.user.UserExistsException;
-import olskercupcakes.domain.user.UserInvalidPasswordException;
-import olskercupcakes.domain.user.UserNotFoundException;
+import olskercupcakes.domain.user.*;
 import olskercupcakes.web.BaseServlet;
 
 import javax.servlet.ServletException;
@@ -42,7 +39,7 @@ public class Authentication extends BaseServlet {
                 throw new UserNotFoundException();
             }
             resp.sendRedirect(req.getContextPath() + "/");
-        } catch (UserNotFoundException | UserInvalidPasswordException e) {
+        } catch (UserNotFoundException | UserNonMatchingPasswordException e) {
             resp.sendRedirect(req.getContextPath() + "/authentication?err=Email og password matcher ikke");
         } catch (NullPointerException e){
             resp.sendRedirect(req.getContextPath() + "/authentication");
@@ -50,7 +47,19 @@ public class Authentication extends BaseServlet {
     }
 
     private void register(HttpServletRequest req, HttpServletResponse resp) {
+        try {
+            String email = req.getParameter("email");
+            String password = req.getParameter("password");
+            String passwordVerify =req.getParameter("password_verify");
+            User user = api.createUser(email, password, passwordVerify);
+            if (user == null){
+                throw new UserPasswordVerifyException();
+            }
+        } catch (UserPasswordVerifyException e){
 
+        } catch (UserExistsException e){
+
+        }
     }
 
     private void logout(HttpServletRequest req, HttpServletResponse resp) {

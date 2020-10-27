@@ -4,6 +4,6 @@ public interface UserRepository {
 
     User createUser (String email, byte[] salt, byte[] secret) throws UserExistsException;
 
-    User authorizeUser (String email, String password) throws UserInvalidPasswordException, UserNotFoundException;
+    User authorizeUser (String email, String password) throws UserNonMatchingPasswordException, UserNotFoundException;
 
 }
