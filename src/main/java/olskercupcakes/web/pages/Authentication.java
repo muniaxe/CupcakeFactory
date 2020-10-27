@@ -40,6 +40,7 @@ public class Authentication extends BaseServlet {
             }
             /*
             TODO: -- add returned user to session
+
             */
             resp.sendRedirect(req.getContextPath() + "/");
         } catch (UserNotFoundException | UserNonMatchingPasswordException e) {
