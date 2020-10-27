@@ -1,4 +1,4 @@
 package olskercupcakes.domain.user;
 
-public class UserNonMatchingPasswordException extends Exception{
+public class UserNonMatchingPasswordException extends Exception {
 }
