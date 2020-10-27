@@ -12,25 +12,30 @@
 <form>
     <div class="row">
         <div class="form-group col-5">
-            <label class="w-100">Vælg bund
-                <select class="form-control" required>
+            <div class="floating-label">
+                <select class="form-control" id="bund" required>
+                    <option disabled selected hidden></option>
                     <option>Chokolade</option>
                     <option>Blåbær</option>
                 </select>
-            </label>
+                <label for="bund">Vælg bund</label>
+            </div>
         </div>
         <div class="form-group col-5">
-            <label class="w-100">Vælg topping
-                <select class="form-control" required>
+            <div class="floating-label">
+                <select class="form-control" id="topping" required>
+                    <option disabled selected hidden></option>
                     <option>Chokolade</option>
                     <option>Blåbær</option>
                 </select>
-            </label>
+                <label for="topping">Vælg topping</label>
+            </div>
         </div>
         <div class="form-group col-2">
-            <label class="w-100">Vælg antal
-                <input type="number" class="form-control" max="100" required>
-            </label>
+            <div class="floating-label">
+                <input type="number" class="form-control" max="100" id="amount" required>
+                <label for="amount">Vælg antal</label>
+            </div>
         </div>
     </div>
     <div class="d-flex justify-content-end">

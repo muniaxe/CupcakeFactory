@@ -20,9 +20,12 @@
     transition: all .2s;
     color:rgba(33,37,41,.7);
     cursor:text;
+    pointer-events: none;
 }
 
-.floating-label input:focus + label, .floating-label input:not(:placeholder-shown) + label {
+.floating-label input[type=text]:focus + label, .floating-label input[type=text]:not(:placeholder-shown) + label,
+.floating-label select:focus + label, .floating-label select:valid + label,
+.floating-label input[type=number]:focus + label, .floating-label input[type=number]:valid + label {
     top:0;
     color:#212529;
     padding:4px;
@@ -32,6 +35,3 @@
 form .form-group:not(:last-of-type) {
     margin-bottom: 0;
 }
-
-
-
