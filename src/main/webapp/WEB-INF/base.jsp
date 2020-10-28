@@ -18,10 +18,6 @@
 </head>
 
 <body>
-
-<c:if test="${sessionScope.user != null}">
-    ${sessionScope.user.email}
-</c:if>
 <div class="container">
     <!--Header-->
     <header class="mb-2">
@@ -31,25 +27,33 @@
     <!--Nav Bar-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-2">
         <ul class="navbar-nav">
-            <li class="nav-item"><a href="" class="nav-link">Shop</a></li>
+            <li class="nav-item"><a href="<c:url value="/"/>" class="nav-link">Shop</a></li>
         </ul>
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">bruger@cphbusiness.dk</a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Ordre historik </a>
-                    <div class="dropdown-divider"></div>
-                    <div class="dropdown-item">
-                        <form method="post" class="m-0" action="${pageContext.request.contextPath}/authentication">
-                            <input hidden value="logout" name="action">
-                            <button class="btn text-danger d-flex w-100 border-0 bg-transparent p-0" type="submit">
-                                <span class="">Log ud</span>
-                                <span class="material-icons-round align-text-bottom ml-auto">exit_to_app</span>
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </li>
+            <c:choose>
+                <c:when test="${sessionScope.user != null}">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.user.email}</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Ordre historik </a>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-item">
+                                <form method="post" class="m-0" action="${pageContext.request.contextPath}/authentication">
+                                    <input hidden value="logout" name="action">
+                                    <button class="btn text-danger d-flex w-100 border-0 bg-transparent p-0" type="submit">
+                                        <span class="">Log ud</span>
+                                        <span class="material-icons-round align-text-bottom ml-auto">exit_to_app</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                </c:when>
+                <c:otherwise>
+                    <li class="nav-item"><a href="<c:url value="/authentication"/>" class="nav-link">Log ind</a></li>
+                </c:otherwise>
+            </c:choose>
+
             <li class="nav-item"><a href="" class="nav-link"><span class="material-icons-round">shopping_basket</span></a></li>
         </ul>
     </nav>

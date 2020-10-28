@@ -34,4 +34,8 @@ public class BaseServlet extends HttpServlet {
         req.getRequestDispatcher("/WEB-INF/base.jsp").forward(req, resp);
     }
 
+    public boolean isUser(HttpServletRequest req) {
+        return req.getSession().getAttribute("user") != null;
+    }
+
 }

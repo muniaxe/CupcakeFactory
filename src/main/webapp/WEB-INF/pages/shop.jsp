@@ -39,7 +39,7 @@
         </div>
     </div>
     <div class="d-flex justify-content-end">
-        <input class="btn btn-primary" type="submit" value="Bestil">
+        <input class="btn btn-primary" type="submit" value="Læg i kurv">
     </div>
 
 </form>

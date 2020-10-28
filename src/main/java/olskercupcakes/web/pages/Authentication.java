@@ -31,6 +31,11 @@ public class Authentication extends BaseServlet {
     }
 
     private void login(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        if(super.isUser(req)) {
+            resp.sendRedirect(req.getContextPath() + "/");
+            return;
+        }
+
         try {
             String email = req.getParameter("email");
             String password = req.getParameter("password");
@@ -50,6 +55,11 @@ public class Authentication extends BaseServlet {
     }
 
     private void register(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if(super.isUser(req)) {
+            resp.sendRedirect(req.getContextPath() + "/");
+            return;
+        }
+
         try {
             String email = req.getParameter("email");
             String password = req.getParameter("password");
@@ -76,6 +86,11 @@ public class Authentication extends BaseServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if(super.isUser(req)) {
+            resp.sendRedirect(req.getContextPath() + "/");
+            return;
+        }
+
         super.render("Registrer eller Login - Olsker Cupcakes", "login", req, resp);
     }
 }
