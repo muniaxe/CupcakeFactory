@@ -39,10 +39,14 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="#">Ordre historik </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item text-danger d-flex" href="#">
+                    <div class="dropdown-item text-danger d-flex invisible-form-overlay" href="">
+                        <form method="post" action="${pageContext.request.contextPath}/authentication">
+                            <input hidden value="logout" name="action">
+                            <input type="submit" value="Log ud">
+                        </form>
                         <span>Log ud</span>
                         <span class="material-icons-round align-text-bottom ml-auto">exit_to_app</span>
-                    </a>
+                    </div>
                 </div>
             </li>
             <li class="nav-item"><a href="" class="nav-link"><span class="material-icons-round">shopping_basket</span></a></li>

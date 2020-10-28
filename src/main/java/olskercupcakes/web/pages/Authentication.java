@@ -69,8 +69,9 @@ public class Authentication extends BaseServlet {
         }
     }
 
-    private void logout(HttpServletRequest req, HttpServletResponse resp) {
-
+    private void logout(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        req.getSession().setAttribute("user", null);
+        resp.sendRedirect(req.getContextPath() + "/");
     }
 
     @Override
