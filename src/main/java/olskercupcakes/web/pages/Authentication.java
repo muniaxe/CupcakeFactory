@@ -49,7 +49,7 @@ public class Authentication extends BaseServlet {
         }
     }
 
-    private void register(HttpServletRequest req, HttpServletResponse resp) {
+    private void register(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             String email = req.getParameter("email");
             String password = req.getParameter("password");
@@ -58,13 +58,14 @@ public class Authentication extends BaseServlet {
             if (user == null){
                 throw new UserPasswordVerifyException();
             }
-            /*
-            TODO: -- add returned user to session
-            */
+            req.getSession().setAttribute("user", user);
+            resp.sendRedirect(req.getContextPath() + "/");
         } catch (UserPasswordVerifyException e){
-
+            req.setAttribute("error", "Adgangskoderne matchede ikke, prøv igen.");
+            doGet(req, resp);
         } catch (UserExistsException e){
-
+            req.setAttribute("error", "Denne email er allerede i brug.");
+            doGet(req, resp);
         }
     }
 

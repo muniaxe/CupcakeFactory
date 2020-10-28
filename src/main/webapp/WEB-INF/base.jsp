@@ -19,6 +19,9 @@
 
 <body>
 
+<c:if test="${sessionScope.user != null}">
+    ${sessionScope.user.email}
+</c:if>
 <div class="container">
     <!--Header-->
     <header class="mb-2">

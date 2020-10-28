@@ -19,13 +19,13 @@
         <h4>Log ind</h4>
         <div class="form-group">
             <div class="floating-label">
-                <input class="form-control" id="login_email" placeholder=" " type="text" name="email" required>
+                <input class="form-control" id="login_email" placeholder=" " type="email" name="email" required>
                 <label class="" for="login_email">Email</label>
             </div>
         </div>
         <div class="form-group">
             <div class="floating-label">
-                <input class="form-control" id="login_password" placeholder=" " type="text" name="password" required>
+                <input class="form-control" id="login_password" placeholder=" " type="password" name="password" required>
                 <label class="" for="login_password">Adgangskode</label>
             </div>
         </div>
@@ -37,19 +37,19 @@
         <h4>Registrer ny bruger</h4>
         <div class="form-group">
             <div class="floating-label">
-                <input class="form-control" id="register_email" placeholder=" " type="text" name="email" required>
+                <input class="form-control" id="register_email" placeholder=" " type="email" name="email" required>
                 <label class="" for="register_email">Email</label>
             </div>
         </div>
         <div class="form-group">
             <div class="floating-label">
-                <input class="form-control" id="register_password" placeholder=" " type="text" name="password" required>
+                <input class="form-control" id="register_password" placeholder=" " type="password" name="password" required>
                 <label class="" for="register_password">Adgangskode</label>
             </div>
         </div>
         <div class="form-group">
             <div class="floating-label">
-                <input class="form-control" id="register_password_verify" placeholder=" " type="text" name="password_verify" required>
+                <input class="form-control" id="register_password_verify" placeholder=" " type="password" name="password_verify" required>
                 <label class="" for="register_password_verify">Bekræft adgangskode</label>
             </div>
         </div>

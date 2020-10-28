@@ -1,9 +1,6 @@
 package olskercupcakes.infrastructure;
 
-import olskercupcakes.domain.user.User;
-import olskercupcakes.domain.user.UserExistsException;
-import olskercupcakes.domain.user.UserNotFoundException;
-import olskercupcakes.domain.user.UserRepository;
+import olskercupcakes.domain.user.*;
 
 import java.sql.*;
 
@@ -15,13 +12,24 @@ public class UserDBDAO implements UserRepository {
         this.db = db;
     }
 
+    private User loadUser(ResultSet rs) throws SQLException {
+        //User(int id, String email, LocalDateTime createdAt, byte[] salt, byte[] secret, int balance)
+        return new User(
+                rs.getInt("users.id"),
+                rs.getString("users.email"),
+                rs.getTimestamp("users._date").toLocalDateTime(),
+                rs.getBytes("users.salt"),
+                rs.getBytes("users.secret"),
+                rs.getInt("users.balance"));
+    }
+
     @Override
     public User createUser(String name, byte[] salt, byte[] secret) throws UserExistsException {
         int id;
         try (Connection conn = db.getConnection()) {
-            var ps =
+            PreparedStatement ps =
                     conn.prepareStatement(
-                            "INSERT INTO users (username, salt, secret) " +
+                            "INSERT INTO users (email, salt, secret) " +
                                     "VALUE (?,?,?);",
                             Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, name);
@@ -35,25 +43,64 @@ public class UserDBDAO implements UserRepository {
 
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-
                 id = rs.getInt(1);
+                try {
+                    return findUser(id);
+                }
+                catch (UserNotFoundException e) {
+                    throw new RuntimeException("Internal error occurred while relaying the newly created user. (Did someone delete the user as it was created?)");
+                }
             } else {
-                throw new UserExistsException(name);
+                throw new UserExistsException();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return findUser(id);
     }
 
     @Override
-    public User authorizeUser(String email, String password) {
-        return null;
+    public User authorizeUser(String email, String password) throws UserNotFoundException, UserNonMatchingPasswordException {
+        User user = findUser(email);
+        if(user.isPasswordCorrect(password)) {
+            return user;
+        }
+        else {
+            throw new UserNonMatchingPasswordException();
+        }
     }
 
     @Override
     public User findUser(int id) throws UserNotFoundException {
-        return null;
+        try (Connection conn = db.getConnection()) {
+            PreparedStatement s = conn.prepareStatement(
+                    "SELECT * FROM users WHERE id = ?;");
+            s.setInt(1, id);
+            ResultSet rs = s.executeQuery();
+            if (rs.next()) {
+                return loadUser(rs);
+            } else {
+                throw new UserNotFoundException();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public User findUser(String email) throws UserNotFoundException {
+        try (Connection conn = db.getConnection()) {
+            PreparedStatement s = conn.prepareStatement(
+                    "SELECT * FROM users WHERE email = ?;");
+            s.setString(1, email);
+            ResultSet rs = s.executeQuery();
+            if (rs.next()) {
+                return loadUser(rs);
+            } else {
+                throw new UserNotFoundException();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
 
