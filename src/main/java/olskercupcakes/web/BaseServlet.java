@@ -14,7 +14,13 @@ public class BaseServlet extends HttpServlet {
     protected static final OlskerCupcakes api;
 
     static {
-        api = createOlskerCupcakes();
+        OlskerCupcakes tmp = null;
+        try {
+            tmp = createOlskerCupcakes();
+        } catch(RuntimeException e) {
+            e.printStackTrace();
+        }
+        api = tmp;
     }
 
     private static OlskerCupcakes createOlskerCupcakes() {
