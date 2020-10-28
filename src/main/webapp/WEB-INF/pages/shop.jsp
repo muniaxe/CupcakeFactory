@@ -33,7 +33,7 @@
         </div>
         <div class="form-group col-2">
             <div class="floating-label">
-                <input type="number" class="form-control" max="100" id="amount" required>
+                <input type="number" placeholder=" " class="form-control" max="100" id="amount" required>
                 <label for="amount">Vælg antal</label>
             </div>
         </div>

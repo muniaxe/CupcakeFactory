@@ -25,7 +25,7 @@
 
 .floating-label input[type=text]:focus + label, .floating-label input[type=text]:not(:placeholder-shown) + label,
 .floating-label select:focus + label, .floating-label select:valid + label,
-.floating-label input[type=number]:focus + label, .floating-label input[type=number]:valid + label {
+.floating-label input[type=number]:focus + label, .floating-label input[type=number]:not(:placeholder-shown) + label {
     top:0;
     color:#212529;
     padding:4px;
