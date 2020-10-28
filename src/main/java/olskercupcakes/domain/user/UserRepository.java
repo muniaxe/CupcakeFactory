@@ -6,4 +6,6 @@ public interface UserRepository {
 
     User authorizeUser (String email, String password) throws UserNonMatchingPasswordException, UserNotFoundException;
 
+    User findUser(int id) throws UserNotFoundException;
+
 }

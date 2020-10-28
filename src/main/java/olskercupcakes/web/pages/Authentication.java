@@ -38,10 +38,7 @@ public class Authentication extends BaseServlet {
             if (user == null){
                 throw new UserNotFoundException();
             }
-            /*
-            TODO: -- add returned user to session
-
-            */
+            req.getSession().setAttribute("user", user);
             resp.sendRedirect(req.getContextPath() + "/");
         } catch (UserNotFoundException | UserNonMatchingPasswordException e) {
             req.setAttribute("error", "Der fandtes ingen bruger med denne email / adgangskode kombination.");

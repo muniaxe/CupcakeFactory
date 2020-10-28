@@ -24,4 +24,4 @@ CREATE TABLE properties (
 
 INSERT INTO properties (name, value) VALUES ("version", "0");
 
-SET GLOBAL time_zone = 'Europe/Copenhagen';
+SET GLOBAL time_zone = '+2:00';

@@ -17,7 +17,7 @@ public class Database {
         }
     }
 
-    public Connection connect() throws SQLException {
+    public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, null);
     }
 
