@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 public class Database {
 
-    private final String URL = "jdbc:mysql://localhost:3306/fourthingsplus?serverTimezone=CET";
-    private final String USER = "fourthingsplus";
+    private final String URL = "jdbc:mysql://localhost:3306/olskercupcakes?serverTimezone=CET";
+    private final String USER = "olskercupcakes";
 
     public Database() {
         try {
