@@ -45,3 +45,15 @@ form .form-group:not(:last-of-type) {
     margin-bottom: 0;
 }
 
+.cart-notifier {
+    height: 7px;
+    width: 7px;
+    background: #ff8383;
+    position: absolute;
+    border-radius: 50%;
+}
+
+.active .cart-notifier, .cart:hover .cart-notifier {
+    background: #ff3939;
+}
+

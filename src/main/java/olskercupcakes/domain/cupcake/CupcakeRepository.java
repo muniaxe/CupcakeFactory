@@ -4,12 +4,12 @@ import java.util.List;
 
 public interface CupcakeRepository {
 
-    List<Cupcake.Topping> findAllToppings() throws CupcakeNoToppingsFoundException;
-
     List<Cupcake.Cake> findAllCakes() throws CupcakeNoCakeFoundException;
 
-    Cupcake.Cake findCake(int id);
+    List<Cupcake.Topping> findAllToppings() throws CupcakeNoToppingFoundException;
 
-    Cupcake.Topping findTopping(int id);
+    Cupcake.Cake findCake(int id) throws CupcakeNoCakeFoundException;
+
+    Cupcake.Topping findTopping(int id) throws CupcakeNoToppingFoundException;
 
 }

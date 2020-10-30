@@ -2,7 +2,7 @@ package olskercupcakes.web.pages;
 
 import olskercupcakes.domain.cupcake.Cupcake;
 import olskercupcakes.domain.cupcake.CupcakeNoCakeFoundException;
-import olskercupcakes.domain.cupcake.CupcakeNoToppingsFoundException;
+import olskercupcakes.domain.cupcake.CupcakeNoToppingFoundException;
 import olskercupcakes.web.BaseServlet;
 
 import javax.servlet.ServletException;
@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("")
-public class Index extends BaseServlet {
+public class WSIndex extends BaseServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -22,7 +22,7 @@ public class Index extends BaseServlet {
         try {
             toppings = api.findAllCupcakeToppings();
             cakes = api.findAllCupcakeCakes();
-        } catch (CupcakeNoCakeFoundException | CupcakeNoToppingsFoundException e){
+        } catch (CupcakeNoCakeFoundException | CupcakeNoToppingFoundException e){
             //e.ddsadsa
             return;
         }

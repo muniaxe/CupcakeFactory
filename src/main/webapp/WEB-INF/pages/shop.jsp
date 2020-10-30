@@ -9,6 +9,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <h1>Start shopping</h1>
+<c:if test="${sessionScope.successMessage != null}">
+    <div class="alert alert-success" role="alert">
+         ${sessionScope.successMessage}
+    </div>
+</c:if>
 <form method="post" action="${pageContext.request.contextPath}/cart" id="order_form">
     <div class="row">
         <div class="form-group col-5">

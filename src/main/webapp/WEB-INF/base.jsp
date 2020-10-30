@@ -55,7 +55,14 @@
                 </c:otherwise>
             </c:choose>
 
-            <li class="nav-item"><a href="" class="nav-link"><span class="material-icons-round">shopping_basket</span></a></li>
+            <li class="nav-item">
+                <d:router-link to="/cart" className="nav-link cart">
+                    <span class="material-icons-round">shopping_basket</span>
+                    <c:if test="${sessionScope.cart.items.size() > 0}">
+                        <span class="cart-notifier"></span>
+                    </c:if>
+                </d:router-link>
+            </li>
         </ul>
     </nav>
 
@@ -64,6 +71,8 @@
         <jsp:include page="/WEB-INF/pages/${requestScope.content}.jsp" />
     </main>
 </div>
+
+<% if(session.getAttribute("successMessage") != null) session.setAttribute("successMessage", null); %>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>

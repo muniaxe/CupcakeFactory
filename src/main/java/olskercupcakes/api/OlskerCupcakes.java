@@ -2,14 +2,11 @@ package olskercupcakes.api;
 
 import olskercupcakes.domain.cupcake.Cupcake;
 import olskercupcakes.domain.cupcake.CupcakeNoCakeFoundException;
-import olskercupcakes.domain.cupcake.CupcakeNoToppingsFoundException;
+import olskercupcakes.domain.cupcake.CupcakeNoToppingFoundException;
 import olskercupcakes.domain.cupcake.CupcakeRepository;
 import olskercupcakes.domain.user.*;
 
-import javax.ejb.Local;
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
 
 public class OlskerCupcakes {
 
@@ -35,15 +32,19 @@ public class OlskerCupcakes {
         return userRepository.createUser(email, salt, secret);
     }
 
-    public Cupcake createCupcake(int toppingId, int cakeId){
-        return null;
-    }
-
-    public List<Cupcake.Topping> findAllCupcakeToppings() throws CupcakeNoToppingsFoundException {
+    public List<Cupcake.Topping> findAllCupcakeToppings() throws CupcakeNoToppingFoundException {
         return cupcakeRepository.findAllToppings();
     }
 
     public List<Cupcake.Cake> findAllCupcakeCakes() throws CupcakeNoCakeFoundException{
         return cupcakeRepository.findAllCakes();
+    }
+
+    public Cupcake.Cake findCupcakeCake(int id) throws CupcakeNoCakeFoundException {
+        return cupcakeRepository.findCake(id);
+    }
+
+    public Cupcake.Topping findCupcakeTopping(int id) throws CupcakeNoToppingFoundException {
+        return cupcakeRepository.findTopping(id);
     }
 }

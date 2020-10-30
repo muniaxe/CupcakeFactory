@@ -1,16 +1,54 @@
 package olskercupcakes.domain.cupcake;
 
+import java.util.Objects;
+
 public class Cupcake {
 
-    private final Topping topping;
     private final Cake cake;
-    private final int id;
+    private final Topping topping;
 
-    public Cupcake(int id, Topping topping, Cake cake) {
-        this.topping = topping;
+    public Cupcake(Cake cake, Topping topping) {
         this.cake = cake;
-        this.id = id;
+        this.topping = topping;
     }
+
+    public Topping getTopping() {
+        return topping;
+    }
+
+    public Cake getCake() {
+        return cake;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cupcake cupcake = (Cupcake) o;
+        return Objects.equals(topping, cupcake.topping) &&
+                Objects.equals(cake, cupcake.cake);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(topping, cake);
+    }
+
+    @Override
+    public String toString() {
+        return "Cupcake{" +
+                "cake=" + cake +
+                ", topping=" + topping +
+                '}';
+    }
+
+    /*
+
+
+    Topping and Cake classes:
+
+
+     */
 
     public static class Topping{
         private final String name;
@@ -35,6 +73,14 @@ public class Cupcake {
             return id;
         }
 
+        @Override
+        public String toString() {
+            return "Topping{" +
+                    "name='" + name + '\'' +
+                    ", price=" + price +
+                    ", id=" + id +
+                    '}';
+        }
     }
 
     public static class Cake {
@@ -58,6 +104,15 @@ public class Cupcake {
 
         public int getId() {
             return id;
+        }
+
+        @Override
+        public String toString() {
+            return "Cake{" +
+                    "name='" + name + '\'' +
+                    ", price=" + price +
+                    ", id=" + id +
+                    '}';
         }
     }
 }

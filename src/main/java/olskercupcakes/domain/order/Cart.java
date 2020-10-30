@@ -1,0 +1,85 @@
+package olskercupcakes.domain.order;
+
+import olskercupcakes.domain.cupcake.Cupcake;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+public class Cart {
+    private final List<Item> items;
+
+    public Cart() {
+        this.items = new ArrayList<>();
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void addItem(Item item) {
+        items.add(item);
+    }
+
+    public void removeItem(Item item) {
+        items.remove(item);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder itemsString = new StringBuilder("Items={\n");
+        for(Item item : items) {
+            itemsString.append(item).append("\n");
+        }
+        itemsString.append("}");
+
+        return itemsString.toString();
+    }
+
+    public static class Item {
+        private final Cupcake cupcake;
+        private int quantity;
+
+        public Item(Cupcake cupcake, int quantity) {
+            this.cupcake = cupcake;
+            this.quantity = quantity;
+        }
+
+        public Cupcake getCupcake() {
+            return cupcake;
+        }
+
+        public int getQuantity() {
+            return quantity;
+        }
+
+        public void setQuantity(int quantity) {
+            this.quantity = quantity;
+        }
+
+        public int getTotalPrice() {
+            return (cupcake.getCake().getPrice() + cupcake.getTopping().getPrice()) * quantity;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Item item = (Item) o;
+            return cupcake.equals(item.cupcake);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(cupcake);
+        }
+
+        @Override
+        public String toString() {
+            return "Item{" +
+                    "cupcake=" + cupcake +
+                    ", quantity=" + quantity +
+                    '}';
+        }
+    }
+}

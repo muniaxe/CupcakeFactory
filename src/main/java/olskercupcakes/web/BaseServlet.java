@@ -2,6 +2,7 @@ package olskercupcakes.web;
 
 import olskercupcakes.api.OlskerCupcakes;
 import olskercupcakes.api.Utils;
+import olskercupcakes.domain.order.Cart;
 import olskercupcakes.infrastructure.CupcakeDBDAO;
 import olskercupcakes.infrastructure.Database;
 import olskercupcakes.infrastructure.UserDBDAO;
@@ -16,6 +17,8 @@ public class BaseServlet extends HttpServlet {
     protected static final OlskerCupcakes api;
     protected static final Utils utils;
 
+    protected static final Cart cart;
+
     static {
         OlskerCupcakes tmp = null;
         try {
@@ -24,6 +27,8 @@ public class BaseServlet extends HttpServlet {
             e.printStackTrace();
         }
         api = tmp;
+
+        cart = new Cart();
 
         utils = new Utils();
     }
@@ -37,6 +42,10 @@ public class BaseServlet extends HttpServlet {
         req.setAttribute("title", title);
         req.setAttribute("content", content);
         req.setAttribute("utils", utils);
+
+        // Cart initiation:
+        req.getSession().setAttribute("cart", cart);
+
         req.getRequestDispatcher("/WEB-INF/base.jsp").forward(req, resp);
     }
 
