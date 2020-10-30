@@ -6,7 +6,10 @@ import olskercupcakes.domain.cupcake.CupcakeNoToppingsFoundException;
 import olskercupcakes.domain.cupcake.CupcakeRepository;
 import olskercupcakes.domain.user.*;
 
+import javax.ejb.Local;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class OlskerCupcakes {
 

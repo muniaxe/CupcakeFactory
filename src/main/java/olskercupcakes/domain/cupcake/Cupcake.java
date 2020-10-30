@@ -34,6 +34,7 @@ public class Cupcake {
         public int getId() {
             return id;
         }
+
     }
 
     public static class Cake {

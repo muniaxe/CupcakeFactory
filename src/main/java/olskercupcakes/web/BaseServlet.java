@@ -1,6 +1,7 @@
 package olskercupcakes.web;
 
 import olskercupcakes.api.OlskerCupcakes;
+import olskercupcakes.api.Utils;
 import olskercupcakes.infrastructure.CupcakeDBDAO;
 import olskercupcakes.infrastructure.Database;
 import olskercupcakes.infrastructure.UserDBDAO;
@@ -13,6 +14,7 @@ import java.io.IOException;
 
 public class BaseServlet extends HttpServlet {
     protected static final OlskerCupcakes api;
+    protected static final Utils utils;
 
     static {
         OlskerCupcakes tmp = null;
@@ -22,6 +24,8 @@ public class BaseServlet extends HttpServlet {
             e.printStackTrace();
         }
         api = tmp;
+
+        utils = new Utils();
     }
 
     private static OlskerCupcakes createOlskerCupcakes() {
@@ -32,6 +36,7 @@ public class BaseServlet extends HttpServlet {
             throws ServletException, IOException {
         req.setAttribute("title", title);
         req.setAttribute("content", content);
+        req.setAttribute("utils", utils);
         req.getRequestDispatcher("/WEB-INF/base.jsp").forward(req, resp);
     }
 
