@@ -1,5 +1,6 @@
 package olskercupcakes.api;
 
+import olskercupcakes.domain.cupcake.Cupcake;
 import olskercupcakes.domain.user.*;
 
 public class OlskerCupcakes {
@@ -24,4 +25,7 @@ public class OlskerCupcakes {
         return userRepository.createUser(email, salt, secret);
     }
 
+    public Cupcake createCupcake(int toppingId, int cakeId){
+        return null;
+    }
 }
