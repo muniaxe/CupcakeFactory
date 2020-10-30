@@ -28,7 +28,7 @@
     <!--Nav Bar-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-2">
         <ul class="navbar-nav">
-            <li class="nav-item"><d:navLink path="/" exact="true">Shop</d:navLink></li>
+            <li class="nav-item"><d:router-link className="nav-link" to="/" exact="true">Shop</d:router-link></li>
         </ul>
         <ul class="navbar-nav ml-auto">
             <c:choose>
@@ -51,7 +51,7 @@
                     </li>
                 </c:when>
                 <c:otherwise>
-                    <li class="nav-item"><d:navLink path="/authentication">Log ind</d:navLink></li>
+                    <li class="nav-item"><d:router-link className="nav-link" to="/authentication">Log ind</d:router-link></li>
                 </c:otherwise>
             </c:choose>
 
