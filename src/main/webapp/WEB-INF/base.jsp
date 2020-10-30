@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="d" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 
@@ -27,7 +28,7 @@
     <!--Nav Bar-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-2">
         <ul class="navbar-nav">
-            <li class="nav-item"><a href="<c:url value="/"/>" class="nav-link">Shop</a></li>
+            <li class="nav-item"><d:router-link className="nav-link" to="/" exact="true">Shop</d:router-link></li>
         </ul>
         <ul class="navbar-nav ml-auto">
             <c:choose>
@@ -50,7 +51,7 @@
                     </li>
                 </c:when>
                 <c:otherwise>
-                    <li class="nav-item"><a href="<c:url value="/authentication"/>" class="nav-link">Log ind</a></li>
+                    <li class="nav-item"><d:router-link className="nav-link" to="/authentication">Log ind</d:router-link></li>
                 </c:otherwise>
             </c:choose>
 
