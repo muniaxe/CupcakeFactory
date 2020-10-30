@@ -1,6 +1,7 @@
 package olskercupcakes.web;
 
 import olskercupcakes.api.OlskerCupcakes;
+import olskercupcakes.infrastructure.CupcakeDBDAO;
 import olskercupcakes.infrastructure.Database;
 import olskercupcakes.infrastructure.UserDBDAO;
 
@@ -25,7 +26,7 @@ public class BaseServlet extends HttpServlet {
 
     private static OlskerCupcakes createOlskerCupcakes() {
         Database db = new Database();
-        return new OlskerCupcakes(new UserDBDAO(db));
+        return new OlskerCupcakes(new UserDBDAO(db), new CupcakeDBDAO(db));
     }
     protected void render(String title, String content, HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

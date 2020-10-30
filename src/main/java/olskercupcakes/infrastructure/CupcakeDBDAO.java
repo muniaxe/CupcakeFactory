@@ -4,9 +4,6 @@ import olskercupcakes.domain.cupcake.Cupcake;
 import olskercupcakes.domain.cupcake.CupcakeNoCakeFoundException;
 import olskercupcakes.domain.cupcake.CupcakeNoToppingsFoundException;
 import olskercupcakes.domain.cupcake.CupcakeRepository;
-import olskercupcakes.domain.user.User;
-import olskercupcakes.domain.user.UserNotFoundException;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -54,9 +51,9 @@ public class CupcakeDBDAO implements CupcakeRepository {
     private Cupcake.Cake loadCake(ResultSet rs) throws SQLException {
         //Cake(int id, String name, int price)
         return new Cupcake.Cake(
-                rs.getInt("cupcake_toppings.id"),
-                rs.getString("cupcake_toppings.name"),
-                rs.getInt("cupcake_toppings.price"));
+                rs.getInt("cupcake_cakes.id"),
+                rs.getString("cupcake_cakes.name"),
+                rs.getInt("cupcake_cakes.price"));
     }
 
     @Override

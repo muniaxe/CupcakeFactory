@@ -13,20 +13,22 @@
     <div class="row">
         <div class="form-group col-5">
             <div class="floating-label">
-                <select class="form-control" id="bund" required>
+                <select class="form-control" id="bund" required name="cake">
                     <option disabled selected hidden></option>
-                    <option>Chokolade</option>
-                    <option>Blåbær</option>
+                    <c:forEach var="cake" items="${requestScope.cakes}">
+                        <option value="${cake.id}"><c:out value="${cake.name}"/></option>
+                    </c:forEach>
                 </select>
                 <label for="bund">Vælg bund</label>
             </div>
         </div>
         <div class="form-group col-5">
             <div class="floating-label">
-                <select class="form-control" id="topping" required>
+                <select class="form-control" id="topping" required name="topping">
                     <option disabled selected hidden></option>
-                    <option>Chokolade</option>
-                    <option>Blåbær</option>
+                    <c:forEach var="topping" items="${requestScope.toppings}">
+                        <option value="${topping.id}"><c:out value="${topping.name}"/></option>
+                    </c:forEach>
                 </select>
                 <label for="topping">Vælg topping</label>
             </div>

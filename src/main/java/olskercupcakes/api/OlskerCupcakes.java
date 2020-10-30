@@ -1,15 +1,22 @@
 package olskercupcakes.api;
 
 import olskercupcakes.domain.cupcake.Cupcake;
+import olskercupcakes.domain.cupcake.CupcakeNoCakeFoundException;
+import olskercupcakes.domain.cupcake.CupcakeNoToppingsFoundException;
+import olskercupcakes.domain.cupcake.CupcakeRepository;
 import olskercupcakes.domain.user.*;
+
+import java.util.List;
 
 public class OlskerCupcakes {
 
     private final UserRepository userRepository;
+    private final CupcakeRepository cupcakeRepository;
 
-    public OlskerCupcakes(UserRepository userDBDAO) {
+    public OlskerCupcakes(UserRepository userDBDAO, CupcakeRepository cupcakeRepository) {
 
         this.userRepository = userDBDAO;
+        this.cupcakeRepository = cupcakeRepository;
     }
 
     public User authorizeUser (String email, String password) throws UserNonMatchingPasswordException, UserNotFoundException {
@@ -27,5 +34,13 @@ public class OlskerCupcakes {
 
     public Cupcake createCupcake(int toppingId, int cakeId){
         return null;
+    }
+
+    public List<Cupcake.Topping> findAllCupcakeToppings() throws CupcakeNoToppingsFoundException {
+        return cupcakeRepository.findAllToppings();
+    }
+
+    public List<Cupcake.Cake> findAllCupcakeCakes() throws CupcakeNoCakeFoundException{
+        return cupcakeRepository.findAllCakes();
     }
 }

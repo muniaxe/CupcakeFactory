@@ -22,6 +22,18 @@ public class Cupcake {
             this.price = price;
             this.id = id;
         }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getPrice() {
+            return price;
+        }
+
+        public int getId() {
+            return id;
+        }
     }
 
     public static class Cake {
@@ -33,6 +45,18 @@ public class Cupcake {
             this.name = name;
             this.price = price;
             this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getPrice() {
+            return price;
+        }
+
+        public int getId() {
+            return id;
         }
     }
 }
