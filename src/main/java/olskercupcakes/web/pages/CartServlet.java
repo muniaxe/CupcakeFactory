@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/cart")
-public class WSCart extends BaseServlet {
+public class CartServlet extends BaseServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.render("Kurv - Olsker Cupcakes", "cart", req, resp);

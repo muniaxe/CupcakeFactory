@@ -1,6 +1,6 @@
 package olskercupcakes.web.pages;
 
-import olskercupcakes.web.AuthServlet;
+import olskercupcakes.web.AuthBaseServlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/my-orders")
-public class WSOrders extends AuthServlet {
+public class OrdersServlet extends AuthBaseServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doGet(req, resp);
