@@ -2,9 +2,7 @@ package olskercupcakes.domain.order;
 
 import olskercupcakes.domain.cupcake.Cupcake;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Cart {
     private final List<Item> items;
@@ -18,7 +16,24 @@ public class Cart {
     }
 
     public void addItem(Item item) {
-        items.add(item);
+        //If same item already exists, just update quantity.
+        Item foundItem;
+        if((foundItem = findItem(item)) != null) {
+            foundItem.setQuantity(item.getQuantity() + foundItem.getQuantity());
+        }
+        else
+            items.add(item);
+    }
+
+    public Item findItem(Item item) {
+        if (items.contains(item)) {
+            for (Item itemTmp : items) {
+                if (itemTmp.equals(item))
+                    return itemTmp;
+            }
+        }
+
+        return null;
     }
 
     public void removeItem(Item item) {

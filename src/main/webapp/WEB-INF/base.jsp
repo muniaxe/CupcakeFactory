@@ -20,6 +20,17 @@
 
 <body>
 <div class="container">
+    <!--Admin Bar -->
+    <c:if test="${sessionScope.user != null && sessionScope.user.admin}">
+        <nav class="navbar navbar-expand-lg navbar-light m-0">
+            <p class="d-flex m-0 text-dark"><span class="material-icons-round align-text-bottom mr-2">admin_panel_settings</span> Logget ind som admin</p>
+            <ul class="ml-auto navbar-nav">
+                <li class="nav-item"><a href="" class="nav-link">Alle ordre</a></li>
+                <li class="nav-item"><a href="" class="nav-link">Alle brugere</a></li>
+            </ul>
+        </nav>
+    </c:if>
+
     <!--Header-->
     <header class="mb-2">
         <img class="img-fluid" src="${pageContext.request.contextPath}/assets/images/olskercupcakes.png">
@@ -68,11 +79,16 @@
 
     <!--content-->
     <main class="bg-light rounded p-3">
+        <c:if test="${sessionScope.notification != null}">
+            <div class="alert alert-${sessionScope.notification.type}" role="alert">
+                    ${sessionScope.notification.message}
+            </div>
+        </c:if>
         <jsp:include page="/WEB-INF/pages/${requestScope.content}.jsp" />
     </main>
 </div>
 
-<% if(session.getAttribute("successMessage") != null) session.setAttribute("successMessage", null); %>
+<% if(session.getAttribute("notification") != null) session.setAttribute("notification", null); %>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>

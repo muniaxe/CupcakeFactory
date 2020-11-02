@@ -30,14 +30,16 @@ public class User {
     private final byte[] salt;
     private final byte[] secret;
     private final int balance;
+    private final boolean admin;
 
-    public User(int id, String email, LocalDateTime createdAt, byte[] salt, byte[] secret, int balance) {
+    public User(int id, String email, LocalDateTime createdAt, byte[] salt, byte[] secret, int balance, boolean isAdmin) {
         this.id = id;
         this.email = email;
         this.createdAt = createdAt;
         this.salt = salt;
         this.secret = secret;
         this.balance = balance;
+        this.admin = isAdmin;
     }
 
     public static byte[] genereateSalt() {
@@ -116,5 +118,9 @@ public class User {
 
     public int getBalance() {
         return balance;
+    }
+
+    public boolean isAdmin() {
+        return admin;
     }
 }

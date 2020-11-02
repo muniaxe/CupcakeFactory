@@ -81,6 +81,19 @@ public class Cupcake {
                     ", id=" + id +
                     '}';
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Topping topping = (Topping) o;
+            return id == topping.id;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(id);
+        }
     }
 
     public static class Cake {
@@ -113,6 +126,19 @@ public class Cupcake {
                     ", price=" + price +
                     ", id=" + id +
                     '}';
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Cake cake = (Cake) o;
+            return id == cake.id;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(id);
         }
     }
 }

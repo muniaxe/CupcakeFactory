@@ -15,18 +15,15 @@ public class AuthenticationServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
+        if(action == null) {
+            resp.sendError(400, "Wrong input, action not set.");
+            return;
+        }
         switch (action) {
-            case "login":
-                login(req, resp);
-                break;
-            case "register":
-                register(req, resp);
-                break;
-            case "logout":
-                logout(req, resp);
-                break;
-            default:
-                resp.sendError(400, "Wrong Input");
+            case "login" -> login(req, resp);
+            case "register" -> register(req, resp);
+            case "logout" -> logout(req, resp);
+            default -> resp.sendError(400, "Wrong Input");
         }
     }
 
@@ -43,8 +40,8 @@ public class AuthenticationServlet extends BaseServlet {
             if (user == null){
                 throw new UserNotFoundException();
             }
-            req.getSession().setAttribute("user", user);
-            resp.sendRedirect(req.getContextPath() + "/");
+            redirect(req, resp, user);
+
         } catch (UserNotFoundException | UserNonMatchingPasswordException e) {
             req.setAttribute("error", "Der fandtes ingen bruger med denne email / adgangskode kombination.");
             doGet(req, resp);
@@ -68,8 +65,7 @@ public class AuthenticationServlet extends BaseServlet {
             if (user == null){
                 throw new UserPasswordVerifyException();
             }
-            req.getSession().setAttribute("user", user);
-            resp.sendRedirect(req.getContextPath() + "/");
+            redirect(req, resp, user);
         } catch (UserPasswordVerifyException e){
             req.setAttribute("error", "Adgangskoderne matchede ikke, prøv igen.");
             doGet(req, resp);
@@ -90,7 +86,21 @@ public class AuthenticationServlet extends BaseServlet {
             resp.sendRedirect(req.getContextPath() + "/");
             return;
         }
-
+        String urlRedirect;
+        if((urlRedirect = req.getParameter("redirect")) != null) {
+            req.getSession().setAttribute("redirect", urlRedirect);
+        }
         super.render("Registrer eller Login - Olsker Cupcakes", "login", req, resp);
+    }
+
+    private void redirect(HttpServletRequest req, HttpServletResponse resp, User user) throws IOException {
+        req.getSession().setAttribute("user", user);
+
+        String urlRedirect;
+        if((urlRedirect = (String) req.getSession().getAttribute("redirect")) != null) {
+            resp.sendRedirect(req.getContextPath() + urlRedirect);
+            req.getSession().setAttribute("redirect", null);
+        } else
+            resp.sendRedirect(req.getContextPath() + "/");
     }
 }

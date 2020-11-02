@@ -57,3 +57,7 @@ form .form-group:not(:last-of-type) {
     background: #ff3939;
 }
 
+.navbar-admin {
+    background-color:#331152;
+}
+

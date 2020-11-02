@@ -7,7 +7,7 @@ public class Database {
     private final String URL = "jdbc:mysql://localhost:3306/olskercupcakes?serverTimezone=CET";
     private final String USER = "olskercupcakes";
 
-    private final int version = 2;
+    private final int version = 3;
 
     public Database() {
         try {

@@ -20,7 +20,9 @@ public class UserDBDAO implements UserRepository {
                 rs.getTimestamp("users._date").toLocalDateTime(),
                 rs.getBytes("users.salt"),
                 rs.getBytes("users.secret"),
-                rs.getInt("users.balance"));
+                rs.getInt("users.balance"),
+                rs.getBoolean("users.is_admin")
+        );
     }
 
     @Override
