@@ -2,7 +2,11 @@ package olskercupcakes.infrastructure;
 
 import olskercupcakes.domain.user.*;
 
+import javax.ejb.Local;
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDBDAO implements UserRepository {
 
@@ -103,6 +107,22 @@ public class UserDBDAO implements UserRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public List<User> getAllUsers() {
+        List<User> users = new ArrayList<>();
+        try (Connection conn = db.getConnection()) {
+            String query = "SELECT * FROM users WHERE is_admin = 0;";
+            Statement s = conn.createStatement();
+            ResultSet rs = s.executeQuery(query);
+            while (rs.next()) {
+                users.add(loadUser(rs));
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
     }
 }
 

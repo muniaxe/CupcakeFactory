@@ -23,7 +23,6 @@ public class IndexServlet extends BaseServlet {
             toppings = api.findAllCupcakeToppings();
             cakes = api.findAllCupcakeCakes();
         } catch (CupcakeNoCakeFoundException | CupcakeNoToppingFoundException e){
-            //e.ddsadsa
             return;
         }
         req.setAttribute("toppings", toppings);
