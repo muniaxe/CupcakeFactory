@@ -3,6 +3,8 @@ package olskercupcakes.web;
 import olskercupcakes.api.OlskerCupcakes;
 import olskercupcakes.api.Utils;
 import olskercupcakes.domain.order.Cart;
+import olskercupcakes.domain.user.User;
+import olskercupcakes.domain.user.UserNotFoundException;
 import olskercupcakes.infrastructure.CupcakeDBDAO;
 import olskercupcakes.infrastructure.Database;
 import olskercupcakes.infrastructure.UserDBDAO;
@@ -47,6 +49,16 @@ public class BaseServlet extends HttpServlet {
         req.getSession().setAttribute("cart", cart);
 
         req.getRequestDispatcher("/WEB-INF/base.jsp").forward(req, resp);
+
+        if (isUser(req)){
+            User user = (User) req.getSession().getAttribute("user");
+            try {
+                User foundUser = api.updateUser(user.getEmail());
+                req.getSession().setAttribute("user", foundUser);
+            } catch (UserNotFoundException e){
+                e.printStackTrace();
+            }
+        }
     }
 
     public boolean isUser(HttpServletRequest req) {
