@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,12 +34,16 @@ public class OrderServlet extends BaseServlet {
 
             Order order = api.createOrder(uuid, user, items);
             req.getSession().setAttribute("order", order);
-            req.removeAttribute("cart");
+
+            LocalDateTime orderCreatedAt = order.getCreatedAt();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd-MM-yyyy");
+            String time = orderCreatedAt.format(formatter);
+            System.out.println(req.getSession().getAttribute("order"));
+
+            req.getSession().setAttribute("createdAt", time);
             super.render("Order - " + uuid, "order", req, resp);
-            //resp.getWriter().println(order.toString());
         } catch (OrderExistsException | UserNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 }
