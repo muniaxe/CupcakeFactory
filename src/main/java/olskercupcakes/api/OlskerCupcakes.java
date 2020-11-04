@@ -27,7 +27,7 @@ public class OlskerCupcakes {
         if (!password.equals(passwordVerify)){
             throw new UserPasswordVerifyException();
         }
-        byte[] salt = User.genereateSalt();
+        byte[] salt = User.generateSalt();
         byte[] secret = User.calculateSecret(salt, password);
         return userRepository.createUser(email, salt, secret);
     }
@@ -46,5 +46,9 @@ public class OlskerCupcakes {
 
     public Cupcake.Topping findCupcakeTopping(int id) throws CupcakeNoToppingFoundException {
         return cupcakeRepository.findTopping(id);
+    }
+
+    public User updateUser(String email) throws UserNotFoundException {
+        return userRepository.findUser(email);
     }
 }

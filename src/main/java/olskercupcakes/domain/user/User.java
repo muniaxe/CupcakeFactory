@@ -42,7 +42,7 @@ public class User {
         this.admin = isAdmin;
     }
 
-    public static byte[] genereateSalt() {
+    public static byte[] generateSalt() {
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
         random.nextBytes(salt);
