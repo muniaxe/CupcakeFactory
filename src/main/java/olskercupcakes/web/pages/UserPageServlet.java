@@ -17,6 +17,6 @@ public class UserPageServlet extends BaseServlet {
         Database db = new Database();
         UserDBDAO conn = new UserDBDAO(db);
         req.setAttribute("users", conn.getAllUsers());
-        super.render("All users", "admin/users", req, resp);
+        super.render("Admin panel - All users", "admin/users", req, resp);
     }
 }
