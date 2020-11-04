@@ -67,9 +67,7 @@ public class CartServlet extends BaseServlet {
             ));
             //Redirect to shop
             resp.sendRedirect(req.getContextPath() + "/");
-        } catch (CupcakeNoCakeFoundException | CupcakeNoToppingFoundException e) {
-            e.printStackTrace();
-        } catch (NumberFormatException e) {
+        } catch (CupcakeNoCakeFoundException | CupcakeNoToppingFoundException | NumberFormatException e) {
             e.printStackTrace();
         }
     }

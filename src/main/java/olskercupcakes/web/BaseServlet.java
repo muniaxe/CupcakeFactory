@@ -64,5 +64,4 @@ public class BaseServlet extends HttpServlet {
     public boolean isUser(HttpServletRequest req) {
         return req.getSession().getAttribute("user") != null;
     }
-
 }

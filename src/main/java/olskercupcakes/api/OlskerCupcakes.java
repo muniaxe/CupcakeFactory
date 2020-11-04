@@ -48,6 +48,10 @@ public class OlskerCupcakes {
         return cupcakeRepository.findTopping(id);
     }
 
+    public List<User> getAllUsers() {
+        return userRepository.getAllUsers();
+    }
+  
     public User updateUser(String email) throws UserNotFoundException {
         return userRepository.findUser(email);
     }
