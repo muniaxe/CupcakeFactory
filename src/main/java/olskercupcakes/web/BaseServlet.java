@@ -39,7 +39,9 @@ public class BaseServlet extends HttpServlet {
 
     private static OlskerCupcakes createOlskerCupcakes() {
         Database db = new Database();
-        return new OlskerCupcakes(new UserDBDAO(db), new CupcakeDBDAO(db), new OrderDBDAO(db));
+        UserDBDAO userDBDAO = new UserDBDAO(db);
+        CupcakeDBDAO cupcakeDBDAO = new CupcakeDBDAO(db);
+        return new OlskerCupcakes(new UserDBDAO(db), new CupcakeDBDAO(db), new OrderDBDAO(db, userDBDAO, cupcakeDBDAO));
     }
     protected void render(String title, String content, HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

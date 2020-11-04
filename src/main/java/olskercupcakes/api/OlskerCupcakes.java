@@ -6,6 +6,7 @@ import olskercupcakes.domain.cupcake.CupcakeNoToppingFoundException;
 import olskercupcakes.domain.cupcake.CupcakeRepository;
 import olskercupcakes.domain.order.Cart;
 import olskercupcakes.domain.order.Order;
+import olskercupcakes.domain.order.OrderExistsException;
 import olskercupcakes.domain.order.OrderRepository;
 import olskercupcakes.domain.user.*;
 
@@ -62,12 +63,7 @@ public class OlskerCupcakes {
         return userRepository.findUser(email);
     }
 
-    public Order createOrder(Order order) {
-        //Extract our values.
-        UUID uuid = order.getUuid();
-        int userId = order.getUser().getId();
-        List<Cart.Item> items = order.getItems();
-
-        return orderRepository.createOrder(uuid, userId, items);
+    public Order createOrder(UUID uuid, User user, List<Cart.Item> items) throws OrderExistsException, UserNotFoundException {
+        return orderRepository.createOrder(uuid, user.getId(), items);
     }
 }

@@ -1,6 +1,8 @@
 package olskercupcakes.infrastructure;
 
 import olskercupcakes.domain.cupcake.Cupcake;
+import olskercupcakes.domain.cupcake.CupcakeNoCakeFoundException;
+import olskercupcakes.domain.cupcake.CupcakeNoToppingFoundException;
 import olskercupcakes.domain.order.*;
 import olskercupcakes.domain.user.User;
 import olskercupcakes.domain.user.UserExistsException;
@@ -14,28 +16,37 @@ import java.util.UUID;
 
 public class OrderDBDAO implements OrderRepository {
     private final Database db;
+    private final UserDBDAO usersDAO;
+    private final CupcakeDBDAO cupcakesDAO;
 
-    public OrderDBDAO(Database db) {
+    public OrderDBDAO(Database db, UserDBDAO userDBDAO, CupcakeDBDAO cupcakeDBDAO) {
         this.db = db;
+        this.usersDAO = userDBDAO;
+        this.cupcakesDAO = cupcakeDBDAO;
     }
 
-    private Order loadOrder(ResultSet rs) throws SQLException, OrderNotFoundException {
+    private Order loadOrder(ResultSet rs) throws SQLException, OrderNotFoundException, UserNotFoundException {
         //User(int id, String email, LocalDateTime createdAt, byte[] salt, byte[] secret, int balance)
-        UUID uuid = UUID.fromString(rs.getString("order.uuid"));
+        UUID uuid = UUID.fromString(rs.getString("orders.uuid"));
 
         List<Cart.Item> items = findItems(uuid);
 
-        User user = null;
-        //Set user from id
+        User user = usersDAO.findUser(rs.getInt("orders.user"));
 
-        LocalDateTime date = rs.getTimestamp("order._date").toLocalDateTime();
+        LocalDateTime date = rs.getTimestamp("orders._date").toLocalDateTime();
 
-        return new Order(uuid, user, null, date);
+        return new Order(uuid, user, items, date);
     }
 
     private Cart.Item loadItem(ResultSet rs) throws SQLException {
-        Cupcake.Cake cake = null;
-        Cupcake.Topping topping = null;
+        Cupcake.Cake cake;
+        Cupcake.Topping topping;
+        try {
+            cake = cupcakesDAO.findCake(rs.getInt("order_items.cake_id"));
+            topping = cupcakesDAO.findTopping(rs.getInt("order_items.topping_id"));
+        } catch (CupcakeNoCakeFoundException | CupcakeNoToppingFoundException e) {
+            throw new RuntimeException("Error pulling the cupcake that was associated with an item in an order.");
+        }
         //Find topping and cake from ID in result set.
 
         Cupcake cupcake = new Cupcake(cake, topping);
@@ -45,7 +56,7 @@ public class OrderDBDAO implements OrderRepository {
     }
 
     @Override
-    public Order createOrder(UUID uuid, int userId, List<Cart.Item> items) throws OrderExistsException {
+    public Order createOrder(UUID uuid, int userId, List<Cart.Item> items) throws OrderExistsException, UserNotFoundException {
         try (Connection conn = db.getConnection()) {
             conn.setAutoCommit(false);
 
@@ -89,7 +100,7 @@ public class OrderDBDAO implements OrderRepository {
     }
 
     @Override
-    public Order findOrder(UUID uuid) throws OrderNotFoundException {
+    public Order findOrder(UUID uuid) throws OrderNotFoundException, UserNotFoundException {
         try (Connection conn = db.getConnection()) {
             PreparedStatement s = conn.prepareStatement(
                     "SELECT * FROM orders WHERE uuid = ?;");
