@@ -4,19 +4,25 @@ import olskercupcakes.domain.cupcake.Cupcake;
 import olskercupcakes.domain.cupcake.CupcakeNoCakeFoundException;
 import olskercupcakes.domain.cupcake.CupcakeNoToppingFoundException;
 import olskercupcakes.domain.cupcake.CupcakeRepository;
+import olskercupcakes.domain.order.Cart;
+import olskercupcakes.domain.order.Order;
+import olskercupcakes.domain.order.OrderRepository;
 import olskercupcakes.domain.user.*;
 
 import java.util.List;
+import java.util.UUID;
 
 public class OlskerCupcakes {
 
     private final UserRepository userRepository;
     private final CupcakeRepository cupcakeRepository;
+    private final OrderRepository orderRepository;
 
-    public OlskerCupcakes(UserRepository userDBDAO, CupcakeRepository cupcakeRepository) {
+    public OlskerCupcakes(UserRepository userDBDAO, CupcakeRepository cupcakeRepository, OrderRepository orderRepository) {
 
         this.userRepository = userDBDAO;
         this.cupcakeRepository = cupcakeRepository;
+        this.orderRepository = orderRepository;
     }
 
     public User authorizeUser (String email, String password) throws UserNonMatchingPasswordException, UserNotFoundException {
@@ -54,5 +60,14 @@ public class OlskerCupcakes {
   
     public User updateUser(String email) throws UserNotFoundException {
         return userRepository.findUser(email);
+    }
+
+    public Order createOrder(Order order) {
+        //Extract our values.
+        UUID uuid = order.getUuid();
+        int userId = order.getUser().getId();
+        List<Cart.Item> items = order.getItems();
+
+        return orderRepository.createOrder(uuid, userId, items);
     }
 }

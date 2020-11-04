@@ -12,7 +12,7 @@ public class Database {
     private String user = "olskercupcakes";
     private boolean logging = true;
 
-    private final int version = 3;
+    private final int version = 4;
 
     public Database() {
         try {

@@ -59,7 +59,7 @@ public class MainIntegrationTest {
         db.runMigrations();
 
         UserRepository userRepository = new UserDBDAO(db);
-        api = new OlskerCupcakes(userRepository, null);
+        api = new OlskerCupcakes(userRepository, null, null);
     }
 
     /*

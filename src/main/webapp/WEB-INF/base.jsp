@@ -46,7 +46,7 @@
                 <c:when test="${sessionScope.user != null}">
                     <li class="nav-item">
                         <a class="nav-link disabled text-primary">
-                        <c:out value="${requestScope.utils.formattedPrice(sessionScope.user.balance)} DKK"/>
+                        DKK: <c:out value="${requestScope.utils.formattedPrice(sessionScope.user.balance)}"/>
                         </a>
                     </li>
                     <li class="nav-item dropdown">

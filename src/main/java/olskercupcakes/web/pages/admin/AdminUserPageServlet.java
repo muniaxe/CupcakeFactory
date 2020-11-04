@@ -16,7 +16,7 @@ public class AdminUserPageServlet extends BaseServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("users", api.getAllUsers());
-        User user = (User) req.getSession().getAttribute("user");
+        User user = super.getUser(req);
         if (user == null || !user.isAdmin()) {
             resp.sendRedirect(req.getContextPath() + "/");
             return;
