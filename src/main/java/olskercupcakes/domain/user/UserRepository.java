@@ -9,5 +9,4 @@ public interface UserRepository {
     User findUser(int id) throws UserNotFoundException;
 
     User findUser(String email) throws UserNotFoundException;
-
 }
