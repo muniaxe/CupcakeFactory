@@ -1,10 +1,12 @@
 drop database if exists olskercupcakes;
 drop user if exists 'olskercupcakes'@'localhost';
-
 create database olskercupcakes;
-create user 'olskercupcakes'@'localhost';
 
+create user 'olskercupcakes'@'localhost';
 grant all privileges on olskercupcakes.* to 'olskercupcakes'@'localhost';
+
+create user 'olskercupcakes_test'@'localhost';
+grant all privileges on olskercupcakes_test.* to 'olskercupcakes_test'@'localhost';
 
 use olskercupcakes;
 DROP TABLE IF EXISTS users;
