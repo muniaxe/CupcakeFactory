@@ -108,7 +108,7 @@ public class UserDBDAO implements UserRepository {
             throw new RuntimeException(e);
         }
     }
-
+    @Override
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
         try (Connection conn = db.getConnection()) {

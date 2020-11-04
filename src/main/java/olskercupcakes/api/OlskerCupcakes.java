@@ -47,4 +47,8 @@ public class OlskerCupcakes {
     public Cupcake.Topping findCupcakeTopping(int id) throws CupcakeNoToppingFoundException {
         return cupcakeRepository.findTopping(id);
     }
+
+    public List<User> getAllUsers() {
+        return userRepository.getAllUsers();
+    }
 }
