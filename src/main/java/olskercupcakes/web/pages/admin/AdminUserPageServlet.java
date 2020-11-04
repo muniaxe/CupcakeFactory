@@ -1,4 +1,4 @@
-package olskercupcakes.web.pages;
+package olskercupcakes.web.pages.admin;
 
 import olskercupcakes.domain.user.User;
 import olskercupcakes.infrastructure.Database;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/admin/users")
-public class UserPageServlet extends BaseServlet {
+public class AdminUserPageServlet extends BaseServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("users", api.getAllUsers());
