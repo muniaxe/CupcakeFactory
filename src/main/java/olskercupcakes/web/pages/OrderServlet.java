@@ -6,13 +6,15 @@ import olskercupcakes.domain.order.OrderExistsException;
 import olskercupcakes.domain.user.User;
 import olskercupcakes.domain.user.UserNotFoundException;
 import olskercupcakes.web.BaseServlet;
-import olskercupcakes.web.Notification;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,7 +34,10 @@ public class OrderServlet extends BaseServlet {
             List<Cart.Item> items = cart.getItems();
 
             Order order = api.createOrder(uuid, user, items);
-            resp.getWriter().println(order.toString());
+            req.getSession().setAttribute("order", order);
+            req.removeAttribute("cart");
+            super.render("Order - " + uuid, "order", req, resp);
+            //resp.getWriter().println(order.toString());
         } catch (OrderExistsException | UserNotFoundException e) {
             e.printStackTrace();
         }
