@@ -3,7 +3,7 @@ package olskercupcakes.web.pages;
 import olskercupcakes.domain.cupcake.Cupcake;
 import olskercupcakes.domain.cupcake.CupcakeNoCakeFoundException;
 import olskercupcakes.domain.cupcake.CupcakeNoToppingFoundException;
-import olskercupcakes.domain.order.Cart;
+import olskercupcakes.domain.order.cart.Cart;
 import olskercupcakes.web.BaseServlet;
 import olskercupcakes.web.Notification;
 
@@ -41,6 +41,9 @@ public class CartServlet extends BaseServlet {
             int toppingId = Integer.parseInt(req.getParameter("topping"));
             int quantity = Integer.parseInt(req.getParameter("quantity"));
 
+            if(quantity < 1 || quantity > 100)
+                throw new IllegalArgumentException();
+
             //Fetch information about cupcake from database;
             Cupcake.Cake cake = api.findCupcakeCake(cakeId);
             Cupcake.Topping topping = api.findCupcakeTopping(toppingId);
@@ -67,8 +70,29 @@ public class CartServlet extends BaseServlet {
             ));
             //Redirect to shop
             resp.sendRedirect(req.getContextPath() + "/");
-        } catch (CupcakeNoCakeFoundException | CupcakeNoToppingFoundException | NumberFormatException e) {
-            e.printStackTrace();
+        } catch (CupcakeNoCakeFoundException e) {
+            req.getSession().setAttribute("notification", new Notification(Notification.Type.DANGER,
+                    "Vi kunne ikke finde den bund, til den cupcake, du prøvede at bestille. Prøv igen."
+            ));
+            resp.sendRedirect(req.getContextPath() + "/");
+        }
+        catch (CupcakeNoToppingFoundException e) {
+            req.getSession().setAttribute("notification", new Notification(Notification.Type.DANGER,
+                    "Vi kunne ikke finde den topping, til den cupcake, du prøvede at bestille. Prøv igen."
+            ));
+            resp.sendRedirect(req.getContextPath() + "/");
+        }
+        catch (NumberFormatException e) {
+            req.getSession().setAttribute("notification", new Notification(Notification.Type.DANGER,
+                    "Der skete en fejl når vi prøvede at tilføje varen til kurven. Prøv igen."
+            ));
+            resp.sendRedirect(req.getContextPath() + "/");
+        }
+        catch (IllegalArgumentException e) {
+            req.getSession().setAttribute("notification", new Notification(Notification.Type.DANGER,
+                    "Du kan kun bestille mellem 1-100 antal af samme cupcake."
+            ));
+            resp.sendRedirect(req.getContextPath() + "/");
         }
     }
 
@@ -92,8 +116,11 @@ public class CartServlet extends BaseServlet {
                             " top er blevet fjernet fra kurven!"
             ));
             resp.sendRedirect(req.getContextPath() + "/cart");
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            e.printStackTrace();
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            req.getSession().setAttribute("notification", new Notification(Notification.Type.DANGER,
+                    "Der skete en fejl når vi prøvede at fjerne varen fra kurven. Prøv igen."
+            ));
+            resp.sendRedirect(req.getContextPath() + "/cart");
         }
     }
 }

@@ -1,6 +1,6 @@
 package olskercupcakes.web.pages;
 
-import olskercupcakes.domain.order.Cart;
+import olskercupcakes.domain.order.cart.Cart;
 import olskercupcakes.domain.order.Order;
 import olskercupcakes.domain.order.OrderExistsException;
 import olskercupcakes.domain.order.OrderNotFoundException;
@@ -16,9 +16,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.UUID;
 
 @WebServlet({"/order", "/order/*"})

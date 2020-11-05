@@ -1,10 +1,9 @@
 package olskercupcakes.domain.order;
 
+import olskercupcakes.domain.order.cart.Cart;
 import olskercupcakes.domain.user.User;
 import olskercupcakes.domain.validation.ValidationErrorException;
-import org.apache.commons.validator.routines.EmailValidator;
 
-import java.util.List;
 import java.util.UUID;
 
 public abstract class OrderFactory {

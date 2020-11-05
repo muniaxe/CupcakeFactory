@@ -4,8 +4,8 @@ import olskercupcakes.domain.cupcake.Cupcake;
 import olskercupcakes.domain.cupcake.CupcakeNoCakeFoundException;
 import olskercupcakes.domain.cupcake.CupcakeNoToppingFoundException;
 import olskercupcakes.domain.order.*;
+import olskercupcakes.domain.order.cart.Cart;
 import olskercupcakes.domain.user.User;
-import olskercupcakes.domain.user.UserExistsException;
 import olskercupcakes.domain.user.UserNotFoundException;
 
 import java.sql.*;
