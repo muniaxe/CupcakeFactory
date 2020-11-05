@@ -3,8 +3,6 @@ package migration;
 import olskercupcakes.infrastructure.Database;
 
 import java.io.*;
-import org.apache.ibatis.jdbc.ScriptRunner;
-import java.sql.Connection;
 import java.sql.SQLException;
 
 public class DBMigration {
