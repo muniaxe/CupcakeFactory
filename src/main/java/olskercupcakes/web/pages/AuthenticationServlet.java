@@ -3,13 +3,13 @@ package olskercupcakes.web.pages;
 import olskercupcakes.domain.user.*;
 import olskercupcakes.domain.validation.ValidationErrorException;
 import olskercupcakes.web.BaseServlet;
+import olskercupcakes.web.Notification;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet("/authentication")
 public class AuthenticationServlet extends BaseServlet {
@@ -45,11 +45,15 @@ public class AuthenticationServlet extends BaseServlet {
             redirect(req, resp, user);
 
         } catch (UserNotFoundException | UserNonMatchingPasswordException e) {
-            req.setAttribute("error", "Der fandtes ingen bruger med denne email / adgangskode kombination.");
-            doGet(req, resp);
+            req.getSession().setAttribute("notification", new Notification(Notification.Type.DANGER,
+                    "Der fandtes ingen bruger med denne email / adgangskode kombination."
+            ));
+            resp.sendRedirect(req.getContextPath() + "/authentication");
         } catch (NullPointerException e){
-            req.setAttribute("error", "Der skete en intern fejl i systemet, prøv igen.");
-            doGet(req, resp);
+            req.getSession().setAttribute("notification", new Notification(Notification.Type.DANGER,
+                    "Der skete en intern fejl i systemet, prøv igen."
+            ));
+            resp.sendRedirect(req.getContextPath() + "/authentication");
         }
     }
 
@@ -76,12 +80,15 @@ public class AuthenticationServlet extends BaseServlet {
             }
             redirect(req, resp, user);
         } catch (UserExistsException e){
-            req.setAttribute("error", "Denne email er allerede i brug.");
-            doGet(req, resp);
+            req.getSession().setAttribute("notification", new Notification(Notification.Type.DANGER,
+                    "Denne e-mail er allerede i brug."
+            ));
+            resp.sendRedirect(req.getContextPath() + "/authentication");
         } catch (ValidationErrorException e) {
-            req.setAttribute("error", "Der var fejl med dit input:");
-            req.setAttribute("errorProblems", e.getProblems());
-            doGet(req, resp);
+            req.getSession().setAttribute("notification", new Notification(Notification.Type.DANGER,
+                    "Der var fejl med dit input:"));
+            req.getSession().setAttribute("notificationProblems", e.getProblems());
+            resp.sendRedirect(req.getContextPath() + "/authentication");
         }
     }
 

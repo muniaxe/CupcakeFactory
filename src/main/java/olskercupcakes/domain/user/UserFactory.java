@@ -33,7 +33,7 @@ public abstract class UserFactory {
         if(password == null || password.length() < 3)
             validationErrorException.addProblem("password", "Adgangskoden kan ikke være mindre end 3 tegn.");
         if(!password.equals(passwordConfirm))
-            validationErrorException.addProblem("password", "Adgangskoderne matcher ikke..");
+            validationErrorException.addProblem("password", "Adgangskoderne matcher ikke.");
         EmailValidator emailValidator = EmailValidator.getInstance();
         if(email == null || !emailValidator.isValid(email))
             validationErrorException.addProblem("email", "Denne e-mail er ikke gyldig.");

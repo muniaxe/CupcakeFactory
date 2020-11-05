@@ -10,20 +10,6 @@
 
 
 <h1 class="mb-3">Log ind eller registrer ny bruger</h1>
-<c:if test="${requestScope.error!=null}">
-<div class="alert alert-danger">
-    <p>
-        ${requestScope.error}
-        <c:if test="${requestScope.errorProblems != null}">
-            <ul>
-                <c:forEach var="problem" items="${requestScope.errorProblems}">
-                    <li><c:out value="${problem.toString()}"/></li>
-                </c:forEach>
-            </ul>
-        </c:if>
-    </p>
-</div>
-</c:if>
 <div class="row">
     <form class="col" name="login" action="${pageContext.request.contextPath}/authentication" method="POST">
         <input hidden value="login" name="action">
