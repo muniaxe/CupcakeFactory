@@ -16,7 +16,7 @@
         <b>Bruger:</b> <c:out value="${requestScope.order.user.email}" />
     </p>
 </div>
-<table class="table table-bordered">
+<table class="table table-bordered no-sort">
     <thead class="thead-light">
     <tr>
         <th scope="col">Bund</th>

@@ -11,3 +11,16 @@ $("#order_form").on("input", function() {
 
     $(".total-price").find("span").text(totalPrice);
 });
+
+/*
+
+DataTables
+
+ */
+
+$("table").not(".no-sort").DataTable({
+    "paging": false,
+    "searching": false,
+    "info": false,
+    order: []
+});

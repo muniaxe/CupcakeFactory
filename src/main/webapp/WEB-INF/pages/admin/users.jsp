@@ -11,10 +11,10 @@
 <table class="table table-bordered">
     <thead class="thead-light">
     <tr>
-        <th scope="col">#</th>
-        <th scope="col">E-mail</th>
-        <th class="text-right" scope="col">Konto beløb</th>
-        <th scope="col">Bruger oprettet</th>
+        <th scope="col" class="text-nowrap">#</th>
+        <th scope="col" class="text-nowrap">E-mail</th>
+        <th class="text-right text-nowrap" scope="col">Konto beløb</th>
+        <th scope="col" class="text-nowrap">Bruger oprettet</th>
     </tr>
     </thead>
     <tbody>
