@@ -88,7 +88,7 @@
             <div class="alert alert-${sessionScope.notification.type}" role="alert">
                     ${sessionScope.notification.message}
             <c:if test="${sessionScope.notificationProblems != null}">
-                <ul>
+                <ul class="mt-3">
                     <c:forEach var="problem" items="${sessionScope.notificationProblems}">
                         <li><c:out value="${problem.toString()}"/></li>
                     </c:forEach>
