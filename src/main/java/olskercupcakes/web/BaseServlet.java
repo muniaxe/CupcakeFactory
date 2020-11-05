@@ -3,8 +3,12 @@ package olskercupcakes.web;
 import olskercupcakes.api.OlskerCupcakes;
 import olskercupcakes.api.Utils;
 import olskercupcakes.domain.order.Cart;
+import olskercupcakes.domain.order.OrderRepository;
+import olskercupcakes.domain.user.User;
+import olskercupcakes.domain.user.UserNotFoundException;
 import olskercupcakes.infrastructure.CupcakeDBDAO;
 import olskercupcakes.infrastructure.Database;
+import olskercupcakes.infrastructure.OrderDBDAO;
 import olskercupcakes.infrastructure.UserDBDAO;
 
 import javax.servlet.ServletException;
@@ -35,7 +39,9 @@ public class BaseServlet extends HttpServlet {
 
     private static OlskerCupcakes createOlskerCupcakes() {
         Database db = new Database();
-        return new OlskerCupcakes(new UserDBDAO(db), new CupcakeDBDAO(db));
+        UserDBDAO userDBDAO = new UserDBDAO(db);
+        CupcakeDBDAO cupcakeDBDAO = new CupcakeDBDAO(db);
+        return new OlskerCupcakes(new UserDBDAO(db), new CupcakeDBDAO(db), new OrderDBDAO(db, userDBDAO, cupcakeDBDAO));
     }
     protected void render(String title, String content, HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -46,6 +52,9 @@ public class BaseServlet extends HttpServlet {
         // Cart initiation:
         req.getSession().setAttribute("cart", cart);
 
+        //Update signed in user..
+        updateSessionUser(req);
+
         req.getRequestDispatcher("/WEB-INF/base.jsp").forward(req, resp);
     }
 
@@ -53,4 +62,22 @@ public class BaseServlet extends HttpServlet {
         return req.getSession().getAttribute("user") != null;
     }
 
+    public User getUser(HttpServletRequest req) {
+        if(isUser(req)) {
+            return (User) req.getSession().getAttribute("user");
+        }
+        return null;
+    }
+
+    private void updateSessionUser(HttpServletRequest req) {
+        if (isUser(req)){
+            User user = getUser(req);
+            try {
+                User foundUser = api.updateUser(user.getEmail());
+                req.getSession().setAttribute("user", foundUser);
+            } catch (UserNotFoundException e){
+                e.printStackTrace();
+            }
+        }
+    }
 }

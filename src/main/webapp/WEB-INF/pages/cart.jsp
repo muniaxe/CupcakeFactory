@@ -35,7 +35,7 @@
             </tbody>
         </table>
         <div>
-            <form action="${pageContext.request.contextPath}/order" class="d-flex justify-content-end">
+            <form action="${pageContext.request.contextPath}/order" method="post" class="d-flex justify-content-end">
                 <c:choose>
                     <c:when test="${sessionScope.user != null}">
                         <input type="submit" value="Bestil" class="btn btn-primary">

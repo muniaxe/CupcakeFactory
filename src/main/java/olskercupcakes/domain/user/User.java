@@ -8,6 +8,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class User {
     private static final int PASSWORD_ITTERATIONS = 65536;
@@ -42,7 +43,7 @@ public class User {
         this.admin = isAdmin;
     }
 
-    public static byte[] genereateSalt() {
+    public static byte[] generateSalt() {
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
         random.nextBytes(salt);
@@ -122,5 +123,19 @@ public class User {
 
     public boolean isAdmin() {
         return admin;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id &&
+                Objects.equals(email, user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, email);
     }
 }

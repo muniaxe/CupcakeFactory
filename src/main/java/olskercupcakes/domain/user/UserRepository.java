@@ -1,5 +1,7 @@
 package olskercupcakes.domain.user;
 
+import java.util.List;
+
 public interface UserRepository {
 
     UserFactory createUser() throws UserExistsException;
@@ -10,4 +12,5 @@ public interface UserRepository {
 
     User findUser(String email) throws UserNotFoundException;
 
+    List<User> getAllUsers();
 }

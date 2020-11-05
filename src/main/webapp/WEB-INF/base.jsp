@@ -25,8 +25,8 @@
         <nav class="navbar navbar-expand-lg navbar-light m-0">
             <p class="d-flex m-0 text-dark"><span class="material-icons-round align-text-bottom mr-2">admin_panel_settings</span> Logget ind som admin</p>
             <ul class="ml-auto navbar-nav">
-                <li class="nav-item"><a href="" class="nav-link">Alle ordre</a></li>
-                <li class="nav-item"><a href="" class="nav-link">Alle brugere</a></li>
+                <li class="nav-item"><d:router-link className="nav-link" to="/ordrer" exact="true">Alle ordre</d:router-link></li>
+                <li class="nav-item"><d:router-link className="nav-link" to="/admin/users">Alle brugere</d:router-link></li>
             </ul>
         </nav>
     </c:if>
@@ -44,6 +44,11 @@
         <ul class="navbar-nav ml-auto">
             <c:choose>
                 <c:when test="${sessionScope.user != null}">
+                    <li class="nav-item">
+                        <a class="nav-link disabled text-primary">
+                        DKK: <c:out value="${requestScope.utils.formattedPrice(sessionScope.user.balance)}"/>
+                        </a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><c:out value="${sessionScope.user.email}"/></a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -90,7 +95,7 @@
 
 <% if(session.getAttribute("notification") != null) session.setAttribute("notification", null); %>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/assets/script/app.js"></script>
 </body>
