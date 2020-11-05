@@ -9,6 +9,7 @@ import olskercupcakes.domain.user.User;
 import olskercupcakes.domain.user.UserNotFoundException;
 import olskercupcakes.domain.validation.ValidationErrorException;
 import olskercupcakes.web.BaseServlet;
+import olskercupcakes.web.Notification;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
