@@ -25,8 +25,8 @@ public class OrderDBDAO implements OrderRepository {
         this.cupcakesDAO = cupcakeDBDAO;
     }
 
+    //TODO: Fix, Why is this casting ordernotfoundexception? Cascading up through the system for no reason...
     private Order loadOrder(ResultSet rs) throws SQLException, OrderNotFoundException, UserNotFoundException {
-        //User(int id, String email, LocalDateTime createdAt, byte[] salt, byte[] secret, int balance)
         UUID uuid = UUID.fromString(rs.getString("orders.uuid"));
 
         List<Cart.Item> items = findItems(uuid);
@@ -56,47 +56,63 @@ public class OrderDBDAO implements OrderRepository {
     }
 
     @Override
-    public Order createOrder(UUID uuid, int userId, List<Cart.Item> items) throws OrderExistsException, UserNotFoundException {
-        try (Connection conn = db.getConnection()) {
-            conn.setAutoCommit(false);
+    public OrderFactory createOrder() throws OrderExistsException, UserNotFoundException {
+        return new OrderFactory() {
+            @Override
+            protected Order commit() {
+                UUID uuid = getUuid();
+                int userId = getUser().getId();
+                List<Cart.Item> items = getCart().getItems();
 
-            try {
-                PreparedStatement ps =
-                        conn.prepareStatement(
-                                "INSERT INTO orders (uuid, user) " +
-                                        "VALUE (?,?);");
-                ps.setString(1, uuid.toString());
-                ps.setInt(2, userId);
+                try (Connection conn = db.getConnection()) {
+                    conn.setAutoCommit(false);
 
-                ps.executeUpdate();
+                    try {
+                        PreparedStatement ps =
+                                conn.prepareStatement(
+                                        "INSERT INTO orders (uuid, user) " +
+                                                "VALUE (?,?);");
+                        ps.setString(1, uuid.toString());
+                        ps.setInt(2, userId);
+                        ps.executeUpdate();
 
-                ps = conn.prepareStatement(
-                        "INSERT INTO order_items (order_uuid, cake_id, topping_id, quantity) " +
-                                "VALUES (?, ?, ?, ?)");
-                for (Cart.Item item : items) {
-                    ps.setString(1, uuid.toString());
-                    ps.setInt(2, item.getCupcake().getCake().getId());
-                    ps.setInt(3, item.getCupcake().getTopping().getId());
-                    ps.setInt(4, item.getQuantity());
-                    ps.executeUpdate();
+                        ps = conn.prepareStatement(
+                                "INSERT INTO order_items (order_uuid, cake_id, topping_id, quantity) " +
+                                        "VALUES (?, ?, ?, ?)");
+                        for (Cart.Item item : items) {
+                            ps.setString(1, uuid.toString());
+                            ps.setInt(2, item.getCupcake().getCake().getId());
+                            ps.setInt(3, item.getCupcake().getTopping().getId());
+                            ps.setInt(4, item.getQuantity());
+                            ps.executeUpdate();
+                        }
+
+                        ps = conn.prepareStatement("UPDATE users SET balance = balance - ? WHERE id = ?");
+                        ps.setInt(1, getCart().getTotalPrice());
+                        ps.setInt(2, userId);
+                        ps.executeUpdate();
+
+                        conn.commit();
+                        conn.setAutoCommit(true);
+
+                        return findOrder(uuid);
+                    } catch (UserNotFoundException e) {
+                        //TODO: Why cast exception, just return a "unknown" user.
+                        throw new RuntimeException("We gotta catch this");
+                    } catch (SQLException e) {
+                        conn.rollback();
+                        conn.setAutoCommit(true);
+                        throw new RuntimeException("An error happened during inserting a new order in the DB system... Good luck.: " + e.getMessage());
+                    }
+                    catch (OrderNotFoundException e) {
+                        throw new RuntimeException("Internal error occurred while relaying the newly created order. (Did someone delete the order as it was created?)");
+                    }
+
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
                 }
-
-                conn.commit();
-                conn.setAutoCommit(true);
-
-                return findOrder(uuid);
-            } catch (SQLException e) {
-                conn.rollback();
-                conn.setAutoCommit(true);
-                throw new RuntimeException("An error happened during inserting a new order in the DB system... Good luck.: " + e.getMessage());
             }
-            catch (OrderNotFoundException e) {
-                throw new RuntimeException("Internal error occurred while relaying the newly created order. (Did someone delete the order as it was created?)");
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        };
     }
 
     @Override

@@ -44,6 +44,18 @@ public class Cart {
         items.remove(index);
     }
 
+    public int getTotalPrice() {
+        return calculatePrice();
+    }
+
+    private int calculatePrice() {
+        int price = 0;
+        for(Item item : items) {
+            price += item.getTotalPrice();
+        }
+        return price;
+    }
+
     @Override
     public String toString() {
         StringBuilder itemsString = new StringBuilder("Items={\n");

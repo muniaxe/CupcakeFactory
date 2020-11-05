@@ -6,6 +6,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface OrderRepository {
-    Order createOrder(UUID uuid, int userId, List<Cart.Item> items) throws OrderExistsException, UserNotFoundException;
+    OrderFactory createOrder() throws OrderExistsException, UserNotFoundException;
     Order findOrder(UUID uuid) throws OrderNotFoundException, UserNotFoundException;
 }
