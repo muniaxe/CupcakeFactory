@@ -37,7 +37,7 @@ public class UserDBDAO implements UserRepository {
                 int id;
 
                 String email = super.getEmail();
-                byte[] salt = User.genereateSalt();
+                byte[] salt = User.generateSalt();
                 byte[] secret = User.calculateSecret(salt, super.getPassword());
 
                 try (Connection conn = db.getConnection()) {
