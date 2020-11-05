@@ -72,7 +72,7 @@ public class MainIntegrationTest {
      * Test will test that an user can be create and signed into.
      *
      */
-    @Test
+    /*@Test
     void userStory2() throws UserExistsException, UserPasswordVerifyException, UserNotFoundException, UserNonMatchingPasswordException {
         //Our default user values...
         String email = "test@olskercupcakes.dk";
@@ -92,5 +92,5 @@ public class MainIntegrationTest {
 
         //We expect our two users to be the same.
         assertEquals(userRegistered, userSignedIn);
-    }
+    }*/
 }
