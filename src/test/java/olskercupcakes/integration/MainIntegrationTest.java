@@ -2,6 +2,7 @@ package olskercupcakes.integration;
 
 import olskercupcakes.api.OlskerCupcakes;
 import olskercupcakes.domain.user.*;
+import olskercupcakes.domain.validation.ValidationErrorException;
 import olskercupcakes.infrastructure.Database;
 import olskercupcakes.infrastructure.UserDBDAO;
 import org.apache.ibatis.jdbc.ScriptRunner;
@@ -72,14 +73,19 @@ public class MainIntegrationTest {
      * Test will test that an user can be create and signed into.
      *
      */
-    /*@Test
-    void userStory2() throws UserExistsException, UserPasswordVerifyException, UserNotFoundException, UserNonMatchingPasswordException {
+    @Test
+    void userStory2() throws UserExistsException, UserNotFoundException, UserNonMatchingPasswordException, ValidationErrorException {
         //Our default user values...
         String email = "test@olskercupcakes.dk";
         String password = "mypassword123";
 
         //User registers our service.
-        User userRegistered = api.createUser(email, password, password);
+        UserFactory userFactory = api.createUser();
+        userFactory.setEmail(email);
+        userFactory.setPassword(password);
+        userFactory.setPasswordConfirm(password);
+
+        User userRegistered = userFactory.validateAndCommit();
 
         //We expect User object to not be null.
         assertNotNull(userRegistered);
@@ -92,5 +98,5 @@ public class MainIntegrationTest {
 
         //We expect our two users to be the same.
         assertEquals(userRegistered, userSignedIn);
-    }*/
+    }
 }
