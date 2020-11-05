@@ -31,12 +31,12 @@ public abstract class UserFactory {
     public void validate() throws ValidationErrorException {
         ValidationErrorException validationErrorException = new ValidationErrorException();
         if(password == null || password.length() < 3)
-            validationErrorException.addProblem("password", "Password can not be less than 3 characters.");
+            validationErrorException.addProblem("password", "Adgangskoden kan ikke være mindre end 3 tegn.");
         if(!password.equals(passwordConfirm))
-            validationErrorException.addProblem("password", "Passwords does not match.");
+            validationErrorException.addProblem("password", "Adgangskoderne matcher ikke..");
         EmailValidator emailValidator = EmailValidator.getInstance();
-        if(!emailValidator.isValid(email))
-            validationErrorException.addProblem("email", "E-mail is not an email.");
+        if(email == null || !emailValidator.isValid(email))
+            validationErrorException.addProblem("email", "Denne e-mail er ikke gyldig.");
 
         validationErrorException.validate();
     }

@@ -63,7 +63,12 @@ public class AuthenticationServlet extends BaseServlet {
             String email = req.getParameter("email");
             String password = req.getParameter("password");
             String passwordVerify =req.getParameter("password_verify");
+
             UserFactory userFactory = api.createUser();
+
+            userFactory.setEmail(email);
+            userFactory.setPassword(password);
+            userFactory.setPasswordConfirm(passwordVerify);
 
             User user = userFactory.validateAndCommit();
             if (user == null){
