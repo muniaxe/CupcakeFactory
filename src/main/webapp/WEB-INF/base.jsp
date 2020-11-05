@@ -25,7 +25,7 @@
         <nav class="navbar navbar-expand-lg navbar-light m-0">
             <p class="d-flex m-0 text-dark"><span class="material-icons-round align-text-bottom mr-2">admin_panel_settings</span> Logget ind som admin</p>
             <ul class="ml-auto navbar-nav">
-                <li class="nav-item"><d:router-link className="nav-link" to="/admin/orders" exact="true">Alle ordrer</d:router-link></li>
+                <li class="nav-item"><d:router-link className="nav-link" to="/admin/orders">Alle ordre</d:router-link></li>
                 <li class="nav-item"><d:router-link className="nav-link" to="/admin/users">Alle brugere</d:router-link></li>
             </ul>
         </nav>
@@ -46,13 +46,13 @@
                 <c:when test="${sessionScope.user != null}">
                     <li class="nav-item">
                         <a class="nav-link disabled text-primary">
-                        DKK: <c:out value="${requestScope.utils.formattedPrice(sessionScope.user.balance)}"/>
+                            <c:out value="${requestScope.utils.formattedPrice(sessionScope.user.balance)}"/> DKK
                         </a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><c:out value="${sessionScope.user.email}"/></a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/user/my-orders">Ordre historik</a>
+                            <d:router-link className="dropdown-item" to="/user/my-orders" exact="true">Ordre historik</d:router-link>
                             <div class="dropdown-divider"></div>
                             <div class="dropdown-item">
                                 <form method="post" class="m-0" action="${pageContext.request.contextPath}/authentication">

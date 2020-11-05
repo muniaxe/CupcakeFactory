@@ -63,7 +63,13 @@ public class OrderServlet extends BaseServlet {
             try {
                 UUID uuid = UUID.fromString(req.getPathInfo().substring(1));
                 Order order = api.findOrder(uuid);
-                req.getSession().setAttribute("order", order);
+
+                if(!isUser(req) || (!getUser(req).equals(order.getUser()) && !getUser(req).isAdmin())) {
+                    resp.sendRedirect(req.getContextPath() + "/");
+                    return;
+                }
+
+                req.setAttribute("order", order);
 
                 super.render("Order - " + uuid, "order", req, resp);
             } catch (UserNotFoundException | OrderNotFoundException e) {

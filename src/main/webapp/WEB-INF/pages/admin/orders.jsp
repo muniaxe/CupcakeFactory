@@ -7,22 +7,21 @@
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<table class="table table-striped">
-    <thead class="thead-dark">
+<h1>Alle ordre</h1>
+<table class="table table-bordered">
+    <thead class="thead-light">
     <tr>
         <th scope="col">#</th>
-        <th scope="col">Bruger</th>
-        <th scope="col">Ordre Oprettet</th>
-        <th scope="col">Ordre ID</th>
+        <th scope="col">Bestilt af</th>
+        <th scope="col">Udstedt</th>
     </tr>
     </thead>
     <tbody>
-    <c:forEach var="order" items="${requestScope.orders}" varStatus="loop">
+    <c:forEach var="order" items="${requestScope.orders}">
         <tr class="d-lg-table-row">
-            <th scope="row"><c:out value="${loop.index + 1}" /></th>
+            <td><a href="${pageContext.request.contextPath}/order/${order.uuid}"><c:out value="#${order.uuid}"/></a></td>
             <td><c:out value="${order.user.email}"/></td>
-            <td><c:out value="${order.createdAt}"/></td>
-            <td><a href="${pageContext.request.contextPath}/order/${order.uuid}"><c:out value="${order.uuid}"/></a></td>
+            <td><c:out value="${requestScope.utils.formattedDate(order.createdAt)}"/></td>
         </tr>
     </c:forEach>
     </tbody>

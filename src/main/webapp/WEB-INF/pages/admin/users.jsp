@@ -7,22 +7,23 @@
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<table class="table table-striped">
-    <thead class="thead-dark">
+<h1>Alle brugere</h1>
+<table class="table table-bordered">
+    <thead class="thead-light">
     <tr>
         <th scope="col">#</th>
-        <th scope="col">Email</th>
+        <th scope="col">E-mail</th>
+        <th class="text-right" scope="col">Konto beløb</th>
         <th scope="col">Bruger oprettet</th>
-        <th scope="col">Balance</th>
     </tr>
     </thead>
     <tbody>
     <c:forEach var="user" items="${requestScope.users}">
         <tr class="d-lg-table-row">
-            <th scope="row"><c:out value="${user.id}" /></th>
-            <td><c:out value="${user.email}" /></td>
-            <td><c:out value="${requestScope.utils.formattedDateTime(user.createdAt)}" /></td>
-            <td><c:out value="${user.balance}" /></td>
+            <th scope="row" class="text-nowrap"><c:out value="${user.id}" /></th>
+            <td class="w-100 text-nowrap"><c:out value="${user.email}" /></td>
+            <td class="text-right text-nowrap"><c:out value="${requestScope.utils.formattedPrice(user.balance)} DKK" /></td>
+            <td class="text-nowrap"><c:out value="${requestScope.utils.formattedDate(user.createdAt)}" /></td>
         </tr>
     </c:forEach>
     </tbody>
