@@ -52,7 +52,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><c:out value="${sessionScope.user.email}"/></a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Ordre historik</a>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/user/my-orders">Ordre historik</a>
                             <div class="dropdown-divider"></div>
                             <div class="dropdown-item">
                                 <form method="post" class="m-0" action="${pageContext.request.contextPath}/authentication">

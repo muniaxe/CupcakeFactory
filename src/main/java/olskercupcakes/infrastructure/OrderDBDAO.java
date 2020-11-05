@@ -153,4 +153,22 @@ public class OrderDBDAO implements OrderRepository {
         }
         return list;
     }
+
+    @Override
+    public List<Order> getAllOrdersByUser(int userId) throws OrderNotFoundException, UserNotFoundException {
+        List<Order> list = new ArrayList<>();
+        try (Connection conn = db.getConnection()){
+            PreparedStatement ps = conn.prepareStatement(
+                    "SELECT * FROM orders WHERE user = ?;");
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                list.add(loadOrder(rs));
+            }
+            return list;
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
 }

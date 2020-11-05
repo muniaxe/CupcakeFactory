@@ -9,4 +9,5 @@ public interface OrderRepository {
     Order createOrder(UUID uuid, int userId, List<Cart.Item> items) throws OrderExistsException, UserNotFoundException;
     Order findOrder(UUID uuid) throws OrderNotFoundException, UserNotFoundException;
     List<Order> getAllOrders() throws OrderNotFoundException;
+    List<Order> getAllOrdersByUser(int userId) throws OrderNotFoundException, UserNotFoundException;
 }
