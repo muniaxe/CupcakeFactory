@@ -1,16 +1,15 @@
 package olskercupcakes.web.pages;
 
-import olskercupcakes.domain.order.Order;
 import olskercupcakes.domain.order.OrderNotFoundException;
 import olskercupcakes.domain.user.User;
 import olskercupcakes.domain.user.UserNotFoundException;
 import olskercupcakes.web.BaseServlet;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet("/user/my-orders")
 public class MyOrdersServlet extends BaseServlet {
