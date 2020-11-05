@@ -8,4 +8,6 @@ import java.util.UUID;
 public interface OrderRepository {
     OrderFactory createOrder() throws OrderExistsException, UserNotFoundException;
     Order findOrder(UUID uuid) throws OrderNotFoundException, UserNotFoundException;
+    List<Order> getAllOrders() throws OrderNotFoundException;
+    List<Order> getAllOrdersByUser(int userId) throws OrderNotFoundException, UserNotFoundException;
 }

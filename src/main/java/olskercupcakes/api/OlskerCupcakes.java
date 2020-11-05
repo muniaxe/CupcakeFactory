@@ -61,4 +61,12 @@ public class OlskerCupcakes {
     public Order findOrder(UUID uuid) throws OrderNotFoundException, UserNotFoundException {
         return orderRepository.findOrder(uuid);
     }
+
+    public List<Order> getAllOrders() throws OrderNotFoundException {
+        return orderRepository.getAllOrders();
+    }
+
+    public List<Order> getAllOrdersByUser(User user) throws OrderNotFoundException, UserNotFoundException{
+        return orderRepository.getAllOrdersByUser(user.getId());
+    }
 }
