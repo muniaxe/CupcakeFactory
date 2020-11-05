@@ -25,7 +25,7 @@
         <nav class="navbar navbar-expand-lg navbar-light m-0">
             <p class="d-flex m-0 text-dark"><span class="material-icons-round align-text-bottom mr-2">admin_panel_settings</span> Logget ind som admin</p>
             <ul class="ml-auto navbar-nav">
-                <li class="nav-item"><d:router-link className="nav-link" to="/ordrer" exact="true">Alle ordre</d:router-link></li>
+                <li class="nav-item"><d:router-link className="nav-link" to="/admin/orders" exact="true">Alle ordrer</d:router-link></li>
                 <li class="nav-item"><d:router-link className="nav-link" to="/admin/users">Alle brugere</d:router-link></li>
             </ul>
         </nav>

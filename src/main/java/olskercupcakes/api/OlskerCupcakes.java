@@ -4,10 +4,7 @@ import olskercupcakes.domain.cupcake.Cupcake;
 import olskercupcakes.domain.cupcake.CupcakeNoCakeFoundException;
 import olskercupcakes.domain.cupcake.CupcakeNoToppingFoundException;
 import olskercupcakes.domain.cupcake.CupcakeRepository;
-import olskercupcakes.domain.order.Cart;
-import olskercupcakes.domain.order.Order;
-import olskercupcakes.domain.order.OrderExistsException;
-import olskercupcakes.domain.order.OrderRepository;
+import olskercupcakes.domain.order.*;
 import olskercupcakes.domain.user.*;
 
 import java.util.List;
@@ -65,5 +62,9 @@ public class OlskerCupcakes {
 
     public Order createOrder(UUID uuid, User user, List<Cart.Item> items) throws OrderExistsException, UserNotFoundException {
         return orderRepository.createOrder(uuid, user.getId(), items);
+    }
+
+    public List<Order> getAllOrders() throws OrderNotFoundException {
+        return orderRepository.getAllOrders();
     }
 }

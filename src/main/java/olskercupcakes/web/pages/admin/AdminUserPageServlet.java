@@ -1,8 +1,7 @@
 package olskercupcakes.web.pages.admin;
 
+import olskercupcakes.domain.order.OrderNotFoundException;
 import olskercupcakes.domain.user.User;
-import olskercupcakes.infrastructure.Database;
-import olskercupcakes.infrastructure.UserDBDAO;
 import olskercupcakes.web.BaseServlet;
 
 import javax.servlet.ServletException;
