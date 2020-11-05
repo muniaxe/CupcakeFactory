@@ -47,6 +47,18 @@ public class Cart {
     public void clearCart() {
         items.clear();
     }
+  
+    public int getTotalPrice() {
+        return calculatePrice();
+    }
+
+    private int calculatePrice() {
+        int price = 0;
+        for(Item item : items) {
+            price += item.getTotalPrice();
+        }
+        return price;
+    }
 
     @Override
     public String toString() {

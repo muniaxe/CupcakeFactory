@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface UserRepository {
 
-    User createUser (String email, byte[] salt, byte[] secret) throws UserExistsException;
+    UserFactory createUser() throws UserExistsException;
 
     User authorizeUser (String email, String password) throws UserNonMatchingPasswordException, UserNotFoundException;
 

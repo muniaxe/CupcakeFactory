@@ -30,38 +30,48 @@ public class UserDBDAO implements UserRepository {
     }
 
     @Override
-    public User createUser(String name, byte[] salt, byte[] secret) throws UserExistsException {
-        int id;
-        try (Connection conn = db.getConnection()) {
-            PreparedStatement ps =
-                    conn.prepareStatement(
-                            "INSERT INTO users (email, salt, secret) " +
-                                    "VALUE (?,?,?);",
-                            Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, name);
-            ps.setBytes(2, salt);
-            ps.setBytes(3, secret);
-            try {
-                ps.executeUpdate();
-            } catch (SQLIntegrityConstraintViolationException e) {
-                throw new UserExistsException();
-            }
+    public UserFactory createUser() throws UserExistsException {
+        return new UserFactory() {
+            @Override
+            public User commit() {
+                int id;
 
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                id = rs.getInt(1);
-                try {
-                    return findUser(id);
+                String email = super.getEmail();
+                byte[] salt = User.generateSalt();
+                byte[] secret = User.calculateSecret(salt, super.getPassword());
+
+                try (Connection conn = db.getConnection()) {
+                    PreparedStatement ps =
+                            conn.prepareStatement(
+                                    "INSERT INTO users (email, salt, secret) " +
+                                            "VALUE (?,?,?);",
+                                    Statement.RETURN_GENERATED_KEYS);
+                    ps.setString(1, email);
+                    ps.setBytes(2, salt);
+                    ps.setBytes(3, secret);
+                    try {
+                        ps.executeUpdate();
+                    } catch (SQLIntegrityConstraintViolationException e) {
+                        throw new UserExistsException();
+                    }
+
+                    ResultSet rs = ps.getGeneratedKeys();
+                    if (rs.next()) {
+                        id = rs.getInt(1);
+                        try {
+                            return findUser(id);
+                        } catch (UserNotFoundException e) {
+                            throw new RuntimeException("Internal error occurred while relaying the newly created user. (Did someone delete the user as it was created?)");
+                        }
+                    } else {
+                        throw new UserExistsException();
+                    }
+                } catch (SQLException | UserExistsException e) {
+                    throw new RuntimeException(e);
                 }
-                catch (UserNotFoundException e) {
-                    throw new RuntimeException("Internal error occurred while relaying the newly created user. (Did someone delete the user as it was created?)");
-                }
-            } else {
-                throw new UserExistsException();
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        };
+
     }
 
     @Override

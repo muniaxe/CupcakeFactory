@@ -19,7 +19,7 @@ public class Notification {
     }
 
     public enum Type {
-        ERROR,
+        DANGER,
         WARNING,
         SUCCESS
     }
