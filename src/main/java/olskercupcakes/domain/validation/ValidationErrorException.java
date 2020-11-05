@@ -39,10 +39,7 @@ public class ValidationErrorException extends Exception {
 
         @Override
         public String toString() {
-            return "Problem{" +
-                    "message='" + message + '\'' +
-                    ", field='" + field + '\'' +
-                    '}';
+            return field + ": " + message;
         }
     }
 }

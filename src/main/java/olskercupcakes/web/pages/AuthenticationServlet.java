@@ -1,6 +1,7 @@
 package olskercupcakes.web.pages;
 
 import olskercupcakes.domain.user.*;
+import olskercupcakes.domain.validation.ValidationErrorException;
 import olskercupcakes.web.BaseServlet;
 
 import javax.servlet.ServletException;
@@ -8,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/authentication")
 public class AuthenticationServlet extends BaseServlet {
@@ -61,16 +63,19 @@ public class AuthenticationServlet extends BaseServlet {
             String email = req.getParameter("email");
             String password = req.getParameter("password");
             String passwordVerify =req.getParameter("password_verify");
-            User user = api.createUser(email, password, passwordVerify);
+            UserFactory userFactory = api.createUser();
+
+            User user = userFactory.validateAndCommit();
             if (user == null){
-                throw new UserPasswordVerifyException();
+                throw new RuntimeException();
             }
             redirect(req, resp, user);
-        } catch (UserPasswordVerifyException e){
-            req.setAttribute("error", "Adgangskoderne matchede ikke, prøv igen.");
-            doGet(req, resp);
         } catch (UserExistsException e){
             req.setAttribute("error", "Denne email er allerede i brug.");
+            doGet(req, resp);
+        } catch (ValidationErrorException e) {
+            req.setAttribute("error", "Der var fejl med dit input:");
+            req.setAttribute("errorProblems", e.getProblems());
             doGet(req, resp);
         }
     }

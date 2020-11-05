@@ -23,13 +23,8 @@ public class OlskerCupcakes {
         return userRepository.authorizeUser(email, password);
     }
 
-    public User createUser(String email, String password, String passwordVerify) throws UserExistsException, UserPasswordVerifyException {
-        if (!password.equals(passwordVerify)){
-            throw new UserPasswordVerifyException();
-        }
-        byte[] salt = User.genereateSalt();
-        byte[] secret = User.calculateSecret(salt, password);
-        return userRepository.createUser(email, salt, secret);
+    public UserFactory createUser() throws UserExistsException {
+        return userRepository.createUser();
     }
 
     public List<Cupcake.Topping> findAllCupcakeToppings() throws CupcakeNoToppingFoundException {
