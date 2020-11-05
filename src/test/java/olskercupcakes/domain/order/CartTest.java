@@ -1,8 +1,7 @@
 package olskercupcakes.domain.order;
 
-import olskercupcakes.api.OlskerCupcakes;
 import olskercupcakes.domain.cupcake.Cupcake;
-import org.junit.jupiter.api.BeforeAll;
+import olskercupcakes.domain.order.cart.Cart;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

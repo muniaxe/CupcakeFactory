@@ -1,4 +1,4 @@
-package olskercupcakes.domain.order;
+package olskercupcakes.domain.order.cart;
 
 import olskercupcakes.domain.cupcake.Cupcake;
 

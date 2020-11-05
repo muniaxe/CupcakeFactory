@@ -2,8 +2,7 @@ package olskercupcakes.web;
 
 import olskercupcakes.api.OlskerCupcakes;
 import olskercupcakes.api.Utils;
-import olskercupcakes.domain.order.Cart;
-import olskercupcakes.domain.order.OrderRepository;
+import olskercupcakes.domain.order.cart.Cart;
 import olskercupcakes.domain.user.User;
 import olskercupcakes.domain.user.UserNotFoundException;
 import olskercupcakes.infrastructure.CupcakeDBDAO;
