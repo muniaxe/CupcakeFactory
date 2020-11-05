@@ -44,6 +44,10 @@ public class Cart {
         items.remove(index);
     }
 
+    public void clearCart() {
+        items.clear();
+    }
+  
     public int getTotalPrice() {
         return calculatePrice();
     }

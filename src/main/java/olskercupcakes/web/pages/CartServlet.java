@@ -79,7 +79,7 @@ public class CartServlet extends BaseServlet {
             //Get current cart.
             Cart cartTmp = (Cart) req.getSession().getAttribute("cart");
 
-            //Add item to cart.
+            //Remove item to cart.
             Cart.Item item = cartTmp.getItems().get(index);
             cartTmp.getItems().remove(index);
 

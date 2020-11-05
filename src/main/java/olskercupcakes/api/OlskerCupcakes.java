@@ -58,4 +58,7 @@ public class OlskerCupcakes {
     public OrderFactory createOrder() throws OrderExistsException, UserNotFoundException {
         return orderRepository.createOrder();
     }
+    public Order findOrder(UUID uuid) throws OrderNotFoundException, UserNotFoundException {
+        return orderRepository.findOrder(uuid);
+    }
 }

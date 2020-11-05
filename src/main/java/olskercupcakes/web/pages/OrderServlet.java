@@ -3,23 +3,26 @@ package olskercupcakes.web.pages;
 import olskercupcakes.domain.order.Cart;
 import olskercupcakes.domain.order.Order;
 import olskercupcakes.domain.order.OrderExistsException;
+import olskercupcakes.domain.order.OrderNotFoundException;
 import olskercupcakes.domain.order.OrderFactory;
 import olskercupcakes.domain.user.User;
 import olskercupcakes.domain.user.UserNotFoundException;
 import olskercupcakes.domain.validation.ValidationErrorException;
 import olskercupcakes.web.BaseServlet;
-import olskercupcakes.web.Notification;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
-@WebServlet("/order")
+@WebServlet({"/order", "/order/*"})
 public class OrderServlet extends BaseServlet {
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if(!isUser(req)) {
@@ -37,7 +40,11 @@ public class OrderServlet extends BaseServlet {
             orderFactory.setCart(cart);
 
             Order order = orderFactory.validateAndCommit();
-            resp.getWriter().println(order.toString());
+          
+            cart.clearCart();
+            req.getSession().setAttribute("cart", cart);
+          
+            resp.sendRedirect(req.getContextPath() + "/order/" + order.getUuid());
         } catch (OrderExistsException | UserNotFoundException e) {
             req.getSession().setAttribute("notification", new Notification(Notification.Type.DANGER,
                     "Der skete en fejl i systemet, prøv igen. Fejlkode: ORDER_EXISTED_WITH_ID"
@@ -50,6 +57,20 @@ public class OrderServlet extends BaseServlet {
             req.getSession().setAttribute("notificationProblems", e.getProblems());
             resp.sendRedirect(req.getContextPath() + "/cart");
         }
+    }
 
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (req.getPathInfo() != null) {
+            try {
+                UUID uuid = UUID.fromString(req.getPathInfo().substring(1));
+                Order order = api.findOrder(uuid);
+                req.getSession().setAttribute("order", order);
+
+                super.render("Order - " + uuid, "order", req, resp);
+            } catch (UserNotFoundException | OrderNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
