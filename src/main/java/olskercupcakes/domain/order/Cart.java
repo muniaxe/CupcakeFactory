@@ -44,6 +44,10 @@ public class Cart {
         items.remove(index);
     }
 
+    public void clearCart() {
+        items.clear();
+    }
+
     @Override
     public String toString() {
         StringBuilder itemsString = new StringBuilder("Items={\n");

@@ -21,7 +21,7 @@
         <tr class="d-lg-table-row">
             <th scope="row"><c:out value="${user.id}" /></th>
             <td><c:out value="${user.email}" /></td>
-            <td><c:out value="${user.createdAt}" /></td>
+            <td><c:out value="${requestScope.utils.formattedDateTime(user.createdAt)}" /></td>
             <td><c:out value="${user.balance}" /></td>
         </tr>
     </c:forEach>

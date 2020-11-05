@@ -10,11 +10,14 @@
 
 <c:set var="totalPris" scope="session" value="0" />
 <c:if test="${sessionScope.user.id == sessionScope.order.user.id}">
-    <h2>Tak fordi du handlede hos Olsker Cupcakes!</h2>
-    <h4 class="mb-4">Her er din ordre</h4>
+    <c:if test="${!sessionScope.user.admin}">
+        <h2>Tak fordi du handlede hos Olsker Cupcakes!</h2>
+        <h4 class="mb-4">Her er din ordre</h4>
+    </c:if>
     <div class="mb-4">
-        <span class="font-weight-bold w-100 d-inline-block">Bruger: <c:out value="${sessionScope.order.user.email}" /></span><br>
-        <span class="font-weight-bold w-100 d-inline-block">Tid ved bestilling: <c:out value="${sessionScope.createdAt}" /></span>
+        <p><span class="font-weight-bold">Bruger: </span><c:out value="${sessionScope.order.user.email}" /><br></p>
+        <p><span class="font-weight-bold">Tid ved bestilling: </span><c:out value="${requestScope.utils.formattedDateTime(order.createdAt)}" /></p>
+        <p><span class="font-weight-bold"># </span><c:out value="${sessionScope.order.uuid}" /></p>
     </div>
     <table class="table table-striped">
         <thead class="thead-dark">
@@ -24,7 +27,6 @@
             <th scope="col">Antal</th>
         </tr>
         </thead>
-
         <tbody>
         <c:forEach items="${sessionScope.order.items}" var="item" varStatus="loop">
             <tr>
