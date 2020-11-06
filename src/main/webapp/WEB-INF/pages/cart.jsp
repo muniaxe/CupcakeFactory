@@ -4,33 +4,43 @@
 <h1>Din kurv</h1>
 <c:choose>
     <c:when test="${sessionScope.cart.items.size() > 0}">
-        <table class="table no-sort">
-            <thead>
+        <table class="table no-sort table-bordered">
+            <thead class="thead-light">
             <tr>
                 <th scope="col">Bund</th>
                 <th scope="col">Topping</th>
                 <th scope="col">Pris</th>
-                <th scope="col" class="text-right"></th>
+                <th scope="col">Antal</th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${sessionScope.cart.items}" var="item" varStatus="loop">
-            <tr>
-                <td><c:out value="${item.cupcake.cake.name}"/></td>
-                <td><c:out value="${item.cupcake.topping.name}"/></td>
-                <td><c:out value="${requestScope.utils.formattedPrice(item.totalPrice)} kr."/></td>
-                <td class="text-right d-flex">
-                    <p class="mr-5 flex-fill font-weight-bold">Antal: ${item.quantity}</p>
-                    <form method="post" action="${pageContext.request.contextPath}/cart">
-                        <input name="action" value="removeItem" hidden>
-                        <input name="index" value="${loop.index}" hidden>
-                        <button type="submit" class="btn text-danger d-flex w-100 border-0 bg-transparent p-0">
-                            FJERN
-                        </button>
-                    </form>
-                </td>
-            </tr>
-            </c:forEach>
+                <c:forEach items="${sessionScope.cart.items}" var="item" varStatus="loop">
+                    <tr>
+                        <td class="w-50 text-nowrap"><c:out value="${item.cupcake.cake.name}"/></td>
+                        <td class="w-50 text-nowrap"><c:out value="${item.cupcake.topping.name}"/></td>
+                        <td class="text-nowrap"><c:out value="${requestScope.utils.formattedPrice(item.totalPrice)} DKK"/></td>
+                        <td class="text-nowrap">
+                            ${item.quantity}
+                        </td>
+                        <td class="text-nowrap">
+                            <form class="d-inline" method="post" action="${pageContext.request.contextPath}/cart">
+                                <input name="action" value="removeItem" hidden>
+                                <input name="index" value="${loop.index}" hidden>
+                                <button type="submit" class="btn text-danger d-flex border-0 bg-transparent p-0">
+                                    FJERN
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+                <tr>
+                    <td class="border-0"></td>
+                    <td class="border-0"></td>
+                    <td class="border-0"></td>
+                    <th scope="col" class="text-nowrap border-0">Total pris:</th>
+                    <th scope="col" class="text-nowrap border-0"><c:out value="${requestScope.utils.formattedPrice(sessionScope.cart.totalPrice)}" /> DKK</th>
+                </tr>
             </tbody>
         </table>
         <div>
