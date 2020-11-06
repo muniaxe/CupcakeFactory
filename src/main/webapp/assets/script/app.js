@@ -20,7 +20,13 @@ DataTables
 
 $("table").not(".no-sort").DataTable({
     "paging": false,
-    "searching": false,
-    "info": false,
-    order: []
+    "searching": true,
+    "info": true,
+    order: [],
+    "language": {
+        "search": "Søg:",
+        "info":           "Viser _START_ til _END_ ud af _TOTAL_ resultater",
+        "infoEmpty":      "Viser 0 til 0 ud af 0 resultater",
+        "infoFiltered":   "(sorteret fra _MAX_ resultater)",
+    }
 });
