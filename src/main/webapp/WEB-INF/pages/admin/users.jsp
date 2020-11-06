@@ -22,7 +22,7 @@
         <tr class="d-lg-table-row">
             <th scope="row" class="text-nowrap"><c:out value="${user.id}" /></th>
             <td class="w-100 text-nowrap"><c:out value="${user.email}" /></td>
-            <td class="text-right text-nowrap"><c:out value="${requestScope.utils.formattedPrice(user.balance)} DKK" /></td>
+            <td class="text-right text-nowrap"><span contenteditable="true"><c:out value="${requestScope.utils.formattedPrice(user.balance)}" /></span> DKK</td>
             <td class="text-nowrap"><c:out value="${requestScope.utils.formattedDate(user.createdAt)}" /></td>
         </tr>
     </c:forEach>

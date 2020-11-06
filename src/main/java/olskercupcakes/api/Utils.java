@@ -17,11 +17,11 @@ public class Utils {
     }
 
     public String formattedDate(LocalDateTime time) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM, yyyy").localizedBy(locale);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd. MMMM, yyyy").localizedBy(locale);
         return WordUtils.capitalize(time.format(formatter));
     }
     public String formattedDateTime(LocalDateTime time) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH.ss - d MMMM, yyyy").localizedBy(locale);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH.ss - dd. MMMM, yyyy").localizedBy(locale);
         return WordUtils.capitalize(time.format(formatter));
     }
 }
