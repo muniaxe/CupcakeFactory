@@ -1,5 +1,6 @@
 package olskercupcakes.web.pages;
 
+import olskercupcakes.domain.order.Order;
 import olskercupcakes.domain.order.OrderNotFoundException;
 import olskercupcakes.domain.user.User;
 import olskercupcakes.domain.user.UserNotFoundException;
@@ -10,6 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Comparator;
+import java.util.List;
 
 @WebServlet("/user/my-orders")
 public class MyOrdersServlet extends BaseServlet {
@@ -21,10 +24,12 @@ public class MyOrdersServlet extends BaseServlet {
             return;
         }
         try {
-            req.setAttribute("orders", api.getAllOrdersByUser(user));
+            List<Order> orders = api.getAllOrdersByUser(user);
+            orders.sort(Comparator.comparing(Order::getCreatedAt).reversed());
+            req.setAttribute("orders", orders);
+            super.render("Mine Ordre - Olsker Cupcakes", "user/my-orders", req, resp);
         } catch (OrderNotFoundException | UserNotFoundException e) {
             e.printStackTrace();
         }
-        super.render("Mine Ordre - Olsker Cupcakes", "user/my-orders", req, resp);
     }
 }
