@@ -25,7 +25,6 @@ public class OrderDBDAO implements OrderRepository {
         this.cupcakesDAO = cupcakeDBDAO;
     }
 
-    //TODO: Fix, Why is this casting ordernotfoundexception? Cascading up through the system for no reason...
     private Order loadOrder(ResultSet rs) throws SQLException, OrderNotFoundException, UserNotFoundException {
         UUID uuid = UUID.fromString(rs.getString("orders.uuid"));
 
