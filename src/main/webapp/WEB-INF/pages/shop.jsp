@@ -46,6 +46,7 @@
         </div>
     </div>
     <div class="d-flex justify-content-end align-items-center">
-        <p class="total-price m-0 mr-4">DKK: <span>0,00</span></p><input class="btn btn-primary" type="submit" value="Læg i kurv">
+        <p class="total-price m-0 mr-4">Pris: <span>0,00</span> DKK</p>
+        <input class="btn btn-primary" type="submit" value="Læg i kurv">
     </div>
 </form>

@@ -4,7 +4,7 @@
 <h1>Din kurv</h1>
 <c:choose>
     <c:when test="${sessionScope.cart.items.size() > 0}">
-        <table class="table">
+        <table class="table no-sort">
             <thead>
             <tr>
                 <th scope="col">Bund</th>

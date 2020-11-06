@@ -8,40 +8,37 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<c:set var="totalPris" scope="session" value="0" />
-<c:if test="${sessionScope.user.id == sessionScope.order.user.id}">
-    <c:if test="${!sessionScope.user.admin}">
-        <h2>Tak fordi du handlede hos Olsker Cupcakes!</h2>
-        <h4 class="mb-4">Her er din ordre</h4>
-    </c:if>
-    <div class="mb-4">
-        <p><span class="font-weight-bold">Bruger: </span><c:out value="${sessionScope.order.user.email}" /><br></p>
-        <p><span class="font-weight-bold">Tid ved bestilling: </span><c:out value="${requestScope.utils.formattedDateTime(order.createdAt)}" /></p>
-        <p><span class="font-weight-bold"># </span><c:out value="${sessionScope.order.uuid}" /></p>
-    </div>
-    <table class="table table-striped">
-        <thead class="thead-dark">
-        <tr>
-            <th scope="col">Bund</th>
-            <th scope="col">Topping</th>
-            <th scope="col">Antal</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${sessionScope.order.items}" var="item" varStatus="loop">
+<h1>Faktura for <small class="text-muted">#<c:out value="${requestScope.order.uuid}" /></small></h1>
+<div class="mb-4">
+    <p>
+        <b>Udstedt:</b> <c:out value="${requestScope.utils.formattedDateTime(requestScope.order.createdAt)}" />
+        <br>
+        <b>Bruger:</b> <c:out value="${requestScope.order.user.email}" />
+    </p>
+</div>
+<table class="table table-bordered no-sort">
+    <thead class="thead-light">
+    <tr>
+        <th scope="col">Bund</th>
+        <th scope="col">Topping</th>
+        <th scope="col">Antal</th>
+        <th scope="col">Pris</th>
+    </tr>
+    </thead>
+    <tbody>
+        <c:forEach items="${requestScope.order.items}" var="item" varStatus="loop">
             <tr>
-                <td scope="col"><c:out value="${item.cupcake.cake.name}" /></td>
-                <td scope="col"><c:out value="${item.cupcake.topping.name}" /></td>
-                <td scope="col"><c:out value="${item.quantity}" /></td>
-                <%--@elvariable id="totalPris" type="java"--%>
-                <c:set var="totalPris" scope="session" value="${totalPris + item.totalPrice}"/>
+                <td><c:out value="${item.cupcake.cake.name}" /></td>
+                <td><c:out value="${item.cupcake.topping.name}" /></td>
+                <td><c:out value="${item.quantity}" /></td>
+                <td><c:out value="${requestScope.utils.formattedPrice(item.totalPrice)}" /> DKK</td>
             </tr>
         </c:forEach>
-
-        </tbody>
-    </table>
-    <div class="d-flex justify-content-end">
-        <p>Total pris: DKK <c:out value=" ${requestScope.utils.formattedPrice(totalPris)}" />
-        </p>
-    </div>
-</c:if>
+        <tr>
+            <td class="w-50 text-nowrap border-0"></td>
+            <td class="w-50 text-nowrap border-0"></td>
+            <th scope="col" class="text-nowrap border-0">Total pris:</th>
+            <th scope="col" class="text-nowrap border-0"><c:out value="${requestScope.utils.formattedPrice(requestScope.order.totalPrice)}" /> DKK</th>
+        </tr>
+    </tbody>
+</table>

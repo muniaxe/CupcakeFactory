@@ -36,6 +36,30 @@ public class Order {
         return createdAt;
     }
 
+    public int getTotalQuantity() {
+        return calculateQuantity();
+    }
+
+    private int calculateQuantity() {
+        int quantity = 0;
+        for(Cart.Item item : items) {
+            quantity += item.getQuantity();
+        }
+        return quantity;
+    }
+
+    public int getTotalPrice() {
+        return calculatePrice();
+    }
+
+    private int calculatePrice() {
+        int price = 0;
+        for(Cart.Item item : items) {
+            price += item.getTotalPrice();
+        }
+        return price;
+    }
+
     @Override
     public String toString() {
         return "Order{" +

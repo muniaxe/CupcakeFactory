@@ -1,4 +1,4 @@
-package olskercupcakes.web.pages;
+package olskercupcakes.web.pages.user;
 
 import olskercupcakes.domain.order.Order;
 import olskercupcakes.domain.order.OrderNotFoundException;
@@ -15,7 +15,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @WebServlet("/user/my-orders")
-public class MyOrdersServlet extends BaseServlet {
+public class UserMyOrdersServlet extends BaseServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = super.getUser(req);

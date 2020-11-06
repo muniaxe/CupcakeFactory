@@ -7,21 +7,30 @@
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<table class="table table-striped">
-    <thead class="thead-dark">
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">Ordre Oprettet</th>
-        <th scope="col">Ordre ID</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach var="order" items="${requestScope.orders}" varStatus="loop">
-        <tr class="d-lg-table-row">
-            <th scope="row"><c:out value="${loop.index + 1}" /></th>
-            <td><c:out value="${order.createdAt}"/></td>
-            <td><a href="${pageContext.request.contextPath}/user/my-orders/${order.uuid}"><c:out value="${order.uuid}"/></a></td>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
+<h1>Ordre historik</h1>
+<c:choose>
+    <c:when test="${requestScope.orders.size() < 1}">
+        <p>Ingen tidligere ordre fundet.</p>
+    </c:when>
+    <c:otherwise>
+        <table class="table table-bordered">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Dato</th>
+                <th scope="col">Beskrivelse</th>
+                <th scope="col">Pris</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="order" items="${requestScope.orders}" varStatus="loop">
+                <tr class="d-lg-table-row">
+                    <td><c:out value="${requestScope.utils.formattedDate(order.createdAt)}"/></td>
+                    <td><a href="${pageContext.request.contextPath}/order/${order.uuid}">Faktura for bestillingen af <c:out value="${order.totalQuantity}"/> cupcakes</a></td>
+                    <td>${requestScope.utils.formattedPrice(order.totalPrice)} DKK</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+
+    </c:otherwise>
+</c:choose>
