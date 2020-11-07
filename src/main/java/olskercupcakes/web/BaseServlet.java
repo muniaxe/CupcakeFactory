@@ -72,7 +72,7 @@ public class BaseServlet extends HttpServlet {
         if (isUser(req)){
             User user = getUser(req);
             try {
-                User foundUser = api.updateUser(user.getEmail());
+                User foundUser = api.refreshUser(user.getEmail());
                 req.getSession().setAttribute("user", foundUser);
             } catch (UserNotFoundException e){
                 e.printStackTrace();

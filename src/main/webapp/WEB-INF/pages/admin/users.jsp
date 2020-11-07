@@ -7,6 +7,7 @@
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <h1>Alle brugere</h1>
 <table class="table table-bordered">
     <thead class="thead-light">
@@ -20,9 +21,11 @@
     <tbody>
     <c:forEach var="user" items="${requestScope.users}">
         <tr class="d-lg-table-row">
-            <th scope="row" class="text-nowrap"><c:out value="${user.id}" /></th>
+            <th scope="row" class="text-nowrap user-id"><c:out value="${user.id}" /></th>
             <td class="w-100 text-nowrap"><c:out value="${user.email}" /></td>
-            <td class="text-right text-nowrap"><span contenteditable="true"><c:out value="${requestScope.utils.formattedPrice(user.balance)}" /></span> DKK</td>
+            <td class="text-right text-nowrap">
+                <span class="d-inline-block admin--balance-editor" contenteditable="true" data-rawvalue="<c:out value="${user.balance}" />"><c:out value="${requestScope.utils.formattedPrice(user.balance)}" /></span> DKK
+            </td>
             <td class="text-nowrap"><c:out value="${requestScope.utils.formattedDate(user.createdAt)}" /></td>
         </tr>
     </c:forEach>

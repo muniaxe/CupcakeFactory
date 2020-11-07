@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Material+Icons+Round" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.css"/>
 
-    <link href="${pageContext.request.contextPath}/assets/style/app.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/assets/style/app.css?<%= Math.random() %>" rel="stylesheet">
 </head>
 
 <body>
@@ -108,6 +108,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 
+<script>let contextPath = "${pageContext.request.contextPath}"</script>
 <script src="${pageContext.request.contextPath}/assets/script/app.js?<%= Math.random() %>"></script>
 </body>
 

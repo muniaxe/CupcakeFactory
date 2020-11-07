@@ -13,4 +13,6 @@ public interface UserRepository {
     User findUser(String email) throws UserNotFoundException;
 
     List<User> getAllUsers();
+
+    User updateUser(User user) throws UserNotFoundException;
 }

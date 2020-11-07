@@ -132,5 +132,30 @@ public class UserDBDAO implements UserRepository {
         }
         return users;
     }
+
+    @Override
+    public User updateUser(User user) throws UserNotFoundException {
+        try (Connection conn = db.getConnection()) {
+            PreparedStatement ps =
+                    conn.prepareStatement(
+                            "UPDATE users SET email = ?, salt = ?, secret = ?, balance = ?, is_admin = ? " +
+                                    "WHERE id = ?");
+            ps.setString(1, user.getEmail());
+            ps.setBytes(2, user.getSalt());
+            ps.setBytes(3, user.getSecret());
+            ps.setInt(4, user.getBalance());
+            ps.setBoolean(5, user.isAdmin());
+            ps.setInt(6, user.getId());
+
+            ps.executeUpdate();
+            try {
+                return findUser(user.getId());
+            } catch (UserNotFoundException e) {
+                throw new RuntimeException("Internal error occurred while relaying the newly created user. (Did someone delete the user as it was created?)");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 

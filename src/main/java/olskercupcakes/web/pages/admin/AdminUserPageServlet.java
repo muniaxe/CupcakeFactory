@@ -1,8 +1,7 @@
 package olskercupcakes.web.pages.admin;
 
-import olskercupcakes.domain.order.Order;
-import olskercupcakes.domain.order.OrderNotFoundException;
 import olskercupcakes.domain.user.User;
+import olskercupcakes.domain.user.UserNotFoundException;
 import olskercupcakes.web.BaseServlet;
 
 import javax.servlet.ServletException;
@@ -26,5 +25,40 @@ public class AdminUserPageServlet extends BaseServlet {
         users.sort(Comparator.comparing(User::getId));
         req.setAttribute("users", users);
         super.render("Admin panel - All users", "admin/users", req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        User user = super.getUser(req);
+        if (user == null || !user.isAdmin()) {
+            resp.sendRedirect(req.getContextPath() + "/");
+            return;
+        }
+        try {
+        String action = req.getParameter("action");
+        String newBalanceString = req.getParameter("new-balance");
+        User userToUpdate = api.findUser(Integer.parseInt(req.getParameter("user-id")));
+        if(action == null)
+            throw new IllegalAccessException();
+
+        //Probably change this to a Switch Case...
+        if(action.equals("update-balance")) {
+            newBalanceString = newBalanceString.replaceAll("\\.", "");
+            newBalanceString = newBalanceString.replaceAll(",", ".");
+            double newBalanceDouble = Double.parseDouble(newBalanceString);
+            int newBalance = (int) (newBalanceDouble * 100);
+            userToUpdate.setBalance(newBalance);
+
+            User updatedUser = api.updateUser(userToUpdate);
+            resp.getWriter().println("{\"balance\": " + updatedUser.getBalance() + "}");
+        }
+        else {
+            throw new IllegalArgumentException();
+        }
+
+        } catch (IllegalAccessException | UserNotFoundException | NumberFormatException e) {
+            e.printStackTrace();
+            resp.sendError(500,"Mistakes were made..");
+        }
     }
 }
