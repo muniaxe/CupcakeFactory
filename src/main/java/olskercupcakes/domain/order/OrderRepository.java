@@ -10,4 +10,6 @@ public interface OrderRepository {
     Order findOrder(UUID uuid) throws OrderNotFoundException, UserNotFoundException;
     List<Order> getAllOrders() throws OrderNotFoundException;
     List<Order> getAllOrdersByUser(int userId) throws OrderNotFoundException, UserNotFoundException;
+
+    Order updateOrder(Order order) throws OrderNotFoundException;
 }

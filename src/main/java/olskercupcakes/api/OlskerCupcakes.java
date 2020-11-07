@@ -77,4 +77,8 @@ public class OlskerCupcakes {
     public User updateUser(User user) throws UserNotFoundException {
         return userRepository.updateUser(user);
     }
+
+    public Order updateOrder(Order order) throws OrderNotFoundException {
+        return orderRepository.updateOrder(order);
+    }
 }
