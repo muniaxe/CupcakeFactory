@@ -1,0 +1,26 @@
+@startuml
+
+title Olsker Cupcakes - Domæne Model - Det Vigtige
+
+
+class Ordre {
+    ordre id
+}
+class Kunde
+{
+    email
+}
+class Cupcake
+class Bund {
+    pris
+}
+Class Topping {
+    pris
+}
+
+Cupcake *-down- Bund : består af 1
+Cupcake *-down- Topping
+Ordre o-- Cupcake : består af flere >
+Kunde --> Ordre : kan afgive >
+
+@enduml
