@@ -51,7 +51,7 @@ public class OlskerCupcakes {
         return userRepository.getAllUsers();
     }
   
-    public User updateUser(String email) throws UserNotFoundException {
+    public User refreshUser(String email) throws UserNotFoundException {
         return userRepository.findUser(email);
     }
 
@@ -68,5 +68,13 @@ public class OlskerCupcakes {
 
     public List<Order> getAllOrdersByUser(User user) throws OrderNotFoundException, UserNotFoundException{
         return orderRepository.getAllOrdersByUser(user.getId());
+    }
+
+    public User findUser(int userId) throws UserNotFoundException {
+        return userRepository.findUser(userId);
+    }
+
+    public User updateUser(User user) throws UserNotFoundException {
+        return userRepository.updateUser(user);
     }
 }

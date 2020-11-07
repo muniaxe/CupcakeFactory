@@ -30,7 +30,7 @@ public class User {
     private final LocalDateTime createdAt;
     private final byte[] salt;
     private final byte[] secret;
-    private final int balance;
+    private int balance;
     private final boolean admin;
 
     public User(int id, String email, LocalDateTime createdAt, byte[] salt, byte[] secret, int balance, boolean isAdmin) {
@@ -123,6 +123,10 @@ public class User {
 
     public boolean isAdmin() {
         return admin;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
     }
 
     @Override
