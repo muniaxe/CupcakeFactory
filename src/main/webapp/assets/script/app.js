@@ -35,6 +35,7 @@ Admin
 
 $(".admin--balance-editor").on("keydown focusout", function (event) {
     let rawValue = $(this).attr("data-rawvalue");
+
     let newBalance = $(this).text();
     let action = "update-balance";
     let userId = $(this).closest("tr").find(".user-id").text();
