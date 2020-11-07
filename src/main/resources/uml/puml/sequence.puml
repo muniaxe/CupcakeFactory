@@ -1,0 +1,23 @@
+@startuml
+
+title "Olsker Cupcakes - Bruger Sekvens Diagram for køb af cupcakes med log ind"
+
+actor Bruger
+boundary "login.jsp" as Login
+entity "AuthenticationServlet" as Auth
+boundary "shop.jsp" as Shop
+entity "CartServlet" as CartS
+boundary "cart.jsp" as cart
+entity "OrderServlet" as OrderS
+database Database
+
+Bruger -> Login : Start
+Login -> Auth : doPost()
+Auth -> Shop : api.authorizeUser()
+Shop -> CartS : doPost()
+CartS --> Shop : cart.addItem()
+Shop -> cart : href
+cart -> OrderS : doPost()
+OrderS -> Database : api.createOrder()
+Database --> Bruger : Order
+@enduml
