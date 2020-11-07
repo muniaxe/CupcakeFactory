@@ -13,7 +13,9 @@
     <tr>
         <th scope="col">#</th>
         <th scope="col">Bestilt af</th>
+        <th scope="col">Status</th>
         <th scope="col">Udstedt</th>
+        <th scole="col"></th>
     </tr>
     </thead>
     <tbody>
@@ -21,7 +23,17 @@
         <tr class="d-lg-table-row">
             <td><a href="${pageContext.request.contextPath}/order/${order.uuid}"><c:out value="#${order.uuid}"/></a></td>
             <td><c:out value="${order.user.email}"/></td>
+            <td><c:out value="${order.status.name}"/></td>
             <td><c:out value="${requestScope.utils.formattedDate(order.createdAt)}"/></td>
+            <td>
+                <form class="d-inline" method="post" action="${pageContext.request.contextPath}/admin/orders">
+                <input name="action" value="delete-order" hidden>
+                <input name="uuid" value="${order.uuid}" hidden>
+                <button type="submit" class="btn text-danger d-flex border-0 bg-transparent p-0">
+                    SLET
+                </button>
+            </form>
+            </td>
         </tr>
     </c:forEach>
     </tbody>

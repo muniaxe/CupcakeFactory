@@ -12,12 +12,14 @@ public class Order {
     private final User user;
     private final List<Cart.Item> items;
     private final LocalDateTime createdAt;
+    private final Status status;
 
-    public Order(UUID uuid, User user, List<Cart.Item> items, LocalDateTime createdAt) {
+    public Order(UUID uuid, User user, List<Cart.Item> items, LocalDateTime createdAt, Status status) {
         this.user = user;
         this.uuid = uuid;
         this.items = items;
         this.createdAt = createdAt;
+        this.status = status;
     }
 
     public List<Cart.Item> getItems() {
@@ -60,6 +62,10 @@ public class Order {
         return price;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -68,5 +74,27 @@ public class Order {
                 ", items=" + items +
                 ", createdAt=" + createdAt +
                 '}';
+    }
+
+    public static class Status {
+        private int id;
+        private final String name;
+
+        public Status(int id, String name) {
+            this.id = id;
+            this.name = name;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
     }
 }
