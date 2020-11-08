@@ -60,6 +60,18 @@ public class Cart {
         return price;
     }
 
+    public int getQuantity() {
+        return calculateQuantity();
+    }
+
+    private int calculateQuantity() {
+        int quantity = 0;
+        for(Item item : items) {
+            quantity += item.getQuantity();
+        }
+        return quantity;
+    }
+
     @Override
     public String toString() {
         StringBuilder itemsString = new StringBuilder("Items={\n");
