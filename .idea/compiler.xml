@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="ProjektSkabelon-master" />
         <module name="Projektskabelon-master" />
+        <module name="olskercupcakes" />
         <module name="CupcakeFactory" />
         <module name="Olsker Cupcakes" />
         <module name="Olsker Cupcake" />
@@ -24,6 +25,7 @@
       <module name="ProjektSkabelon-master" options="-endorseddirs &quot;$PROJECT_DIR$/target/endorsed&quot;" />
       <module name="Projektskabelon" options="-endorseddirs $PROJECT_DIR$/target/endorsed" />
       <module name="Projektskabelon-master" options="-endorseddirs $PROJECT_DIR$/target/endorsed" />
+      <module name="olskercupcakes" options="-endorseddirs &quot;C:\Users\Windowshoi\OneDrive\Dokumenter\code\java\_ School Projects\2nd Sem\Olsker Cupcake\code\target/endorsed&quot;" />
       <module name="prejektSkabelon" options="-endorseddirs &quot;$PROJECT_DIR$/target/endorsed&quot;" />
     </option>
   </component>

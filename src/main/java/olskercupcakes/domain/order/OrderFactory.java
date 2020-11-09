@@ -38,7 +38,7 @@ public abstract class OrderFactory {
 
     public void validate() throws ValidationErrorException {
         ValidationErrorException validationErrorException = new ValidationErrorException();
-        if(getCart().getItems().isEmpty())
+        if(getCart() == null || getCart().getItems().isEmpty())
             validationErrorException.addProblem("cart", "Din kurv er tom, du kan ikke bestille med en tom kurv.");
         if(getCart().getTotalPrice() > getUser().getBalance())
             validationErrorException.addProblem("balance", "Du har ikke nok penge på din konto for at betale for denne ordre. Hvis dette er en fejl, kontakt os venligst.");
