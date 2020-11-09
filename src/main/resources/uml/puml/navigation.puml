@@ -1,0 +1,60 @@
+@startuml
+Title Olsker Cupcakes - Navigationsdiagram
+
+State "/shop" as shop
+State "/cart" as cart
+State "/authentication" as authentication
+State "/order/*" as order
+
+
+shop --> cart : tilføj til kurv
+shop --> authentication : login
+cart --> shop : return
+cart --> cart : fjern
+cart --> authentication : log ind med redirect
+authentication --> shop : return
+authentication --> authentication : log på (fejl)
+authentication --> cart : retur
+authentication --> AdminLogin : logget ind som admin
+order --> shop : retur
+
+BrugerLogin --> shop : log ud
+AdminLogin --> shop : log ud
+
+note left of authentication
+Bruger gemt i session
+end note
+
+note left of cart
+Kurv gemt i session
+end note
+
+
+State BrugerLogin {
+    State "/my-orders" as myOrders
+    State "/cart" as cartU
+
+    authentication --> BrugerLogin : logget ind som bruger
+    cartU --> order : bestil
+    cartU --> cartU : fjern
+    cartU --> shop : return
+    myOrders --> shop : retur
+    myOrders --> order : se ordre
+    shop --> myOrders : se brugerens ordrer
+    shop --> cartU : tilføj til kurv
+
+    note bottom of cartU
+    Kurv gemt i session
+    end note
+}
+
+State AdminLogin {
+    State "/admin/users" as adminUsers
+    State "/admin/orders" as adminOrders
+
+    AdminLogin --> adminOrders : se alle ordre
+    AdminLogin --> adminUsers : se alle brugere
+    adminOrders --> order : se ordre
+}
+
+@enduml

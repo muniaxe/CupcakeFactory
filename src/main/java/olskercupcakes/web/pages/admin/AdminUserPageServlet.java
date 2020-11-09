@@ -35,28 +35,28 @@ public class AdminUserPageServlet extends BaseServlet {
             return;
         }
         try {
-        String action = req.getParameter("action");
-        String newBalanceString = req.getParameter("new-balance");
-        User userToUpdate = api.findUser(Integer.parseInt(req.getParameter("user-id")));
-        if(action == null)
-            throw new IllegalAccessException();
+            String action = req.getParameter("action");
+            String newBalanceString = req.getParameter("new-balance");
+            User userToUpdate = api.findUser(Integer.parseInt(req.getParameter("user-id")));
+            if(action == null)
+                throw new IllegalArgumentException();
 
-        //Probably change this to a Switch Case...
-        if(action.equals("update-balance")) {
-            newBalanceString = newBalanceString.replaceAll("\\.", "");
-            newBalanceString = newBalanceString.replaceAll(",", ".");
-            double newBalanceDouble = Double.parseDouble(newBalanceString);
-            int newBalance = (int) (newBalanceDouble * 100);
-            userToUpdate.setBalance(newBalance);
+            //Probably change this to a Switch Case...
+            if(action.equals("update-balance")) {
+                newBalanceString = newBalanceString.replaceAll("\\.", "");
+                newBalanceString = newBalanceString.replaceAll(",", ".");
+                double newBalanceDouble = Double.parseDouble(newBalanceString);
+                int newBalance = (int) (newBalanceDouble * 100);
+                userToUpdate.setBalance(newBalance);
 
-            User updatedUser = api.updateUser(userToUpdate);
-            resp.getWriter().println("{\"balance\": " + updatedUser.getBalance() + "}");
-        }
-        else {
-            throw new IllegalArgumentException();
-        }
+                User updatedUser = api.updateUser(userToUpdate);
+                resp.getWriter().println("{\"balance\": " + updatedUser.getBalance() + "}");
+            }
+            else {
+                throw new IllegalArgumentException();
+            }
 
-        } catch (IllegalAccessException | UserNotFoundException | NumberFormatException e) {
+        } catch (IllegalArgumentException | UserNotFoundException e) {
             e.printStackTrace();
             resp.sendError(500,"Mistakes were made..");
         }

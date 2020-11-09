@@ -34,7 +34,9 @@ public class OrderDBDAO implements OrderRepository {
 
         LocalDateTime date = rs.getTimestamp("orders._date").toLocalDateTime();
 
-        return new Order(uuid, user, items, date);
+        Order.Status status = new Order.Status(rs.getInt("os.id"), rs.getString("os.name"));
+
+        return new Order(uuid, user, items, date, status);
     }
 
     private Cart.Item loadItem(ResultSet rs) throws SQLException {
@@ -118,8 +120,9 @@ public class OrderDBDAO implements OrderRepository {
     public Order findOrder(UUID uuid) throws OrderNotFoundException, UserNotFoundException {
         try (Connection conn = db.getConnection()) {
             PreparedStatement s = conn.prepareStatement(
-                    "SELECT * FROM orders WHERE uuid = ?;");
+                    "SELECT * FROM orders INNER JOIN order_status os on orders.status = os.id WHERE uuid = ?");
             s.setString(1, uuid.toString());
+
             ResultSet rs = s.executeQuery();
             if (rs.next()) {
                 return loadOrder(rs);
@@ -156,9 +159,13 @@ public class OrderDBDAO implements OrderRepository {
     public List<Order> getAllOrders() throws OrderNotFoundException {
         List<Order> list = new ArrayList<>();
         try (Connection conn = db.getConnection()) {
-            String query = "SELECT * FROM orders;";
-            Statement s = conn.createStatement();
-            ResultSet rs = s.executeQuery(query);
+            String query = "SELECT * FROM orders INNER JOIN order_status os on orders.status = os.id WHERE orders.status != ?;";
+            PreparedStatement ps = conn.prepareStatement(query);
+
+            //TODO: Should not be hardcoded (If order is deleted)
+            ps.setInt(1, 2);
+
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(loadOrder(rs));
             }
@@ -174,14 +181,42 @@ public class OrderDBDAO implements OrderRepository {
         List<Order> list = new ArrayList<>();
         try (Connection conn = db.getConnection()){
             PreparedStatement ps = conn.prepareStatement(
-                    "SELECT * FROM orders WHERE user = ?;");
+                    "SELECT * FROM orders INNER JOIN order_status os on orders.status = os.id WHERE user = ? AND orders.status != ?;");
             ps.setInt(1, userId);
+
+            //TODO: Should not be hardcoded (If order is deleted)
+            ps.setInt(2, 2);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
                 list.add(loadOrder(rs));
             }
             return list;
         } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    //Very lite version... = Don't change items.
+    @Override
+    public Order updateOrder(Order order) throws OrderNotFoundException {
+        try (Connection conn = db.getConnection()) {
+            PreparedStatement ps =
+                    conn.prepareStatement(
+                            "UPDATE orders SET status = ? " +
+                                    "WHERE uuid = ?");
+            ps.setInt(1, order.getStatus().getId());
+            ps.setString(2, order.getUuid().toString());
+
+            ps.executeUpdate();
+            try {
+                return findOrder(order.getUuid());
+            } catch (OrderNotFoundException e) {
+                throw new RuntimeException("Internal error occurred while relaying the newly created order. (Did someone delete the order as it was created?)");
+            }
+            catch (UserNotFoundException e) {
+                throw new RuntimeException("Internal Error occurred... User deleted from system?");
+            }
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
