@@ -10,6 +10,8 @@
           <option value="src.main.webapp.assets.script.CreateUsers.range" />
           <option value="src.main.webapp.assets.script.CreateUsers.str" />
           <option value="src.main.webapp.assets.script.CreateUsers.print" />
+          <option value="threading" />
+          <option value="src.main.webapp.assets.script.CreateUsers.round" />
         </list>
       </option>
     </inspection_tool>
